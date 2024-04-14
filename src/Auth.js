@@ -27,7 +27,7 @@ export default function App() {
 
   if (!session) {
     return (
-      <div style={{width:'75vw', height:'100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <div style={{ height:'100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Auth 
           supabaseClient={supabase} 
           appearance={{ theme: ThemeSupa }} 
