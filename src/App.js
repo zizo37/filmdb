@@ -6,9 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <>
-      <h1>FILMDB</h1>
-       
+    <>       
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/home" element={<Home />} />
