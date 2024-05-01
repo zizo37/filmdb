@@ -1,80 +1,55 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
 import './App.css';
 import './headerStyle.css';
 
 function Header() {
+
+  const supabase = createClient('https://ksnouxckabitqorjucgz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c');
+
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null); // State to store the user object
+
+  useEffect(()=>{
+
+    // Function to fetch user data
+    const fetchUserData = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser()
+      if (error) {
+        console.error('Error fetching user data:', error.message);
+      } else {
+        setUser(user); // Set the user state with the fetched user data
+      }
+    };
+
+    fetchUserData(); // Call the fetchUserData function when the component mounts
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      console.log('User signed out');
+      setUser(null); // Update the user state to null upon successful logout
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error.message);
+    }
+  };
+
   return (
     <>
-    {/* <header className="container-fluid bg-dark text-light py-4">
-      <div className="row align-items-center">
-        <div className="col-auto">
-          <img src="image1.png" alt="Logo" style={{ maxHeight: '150px' }} />
-        </div>
-        <div className="col-auto mx-3">
-          <div className="dropdown">
-            <button
-              className="btn btn-sm btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i className="bi bi-list"></i> Menu
-            </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a className="dropdown-item" href="#">
-                Movies
-              </a>
-              <a className="dropdown-item" href="#">
-                Series
-              </a>
-              <a className="dropdown-item" href="#">
-                Contact Us
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col mx-3">
-          <div className="input-group input-group-sm">
-            <input type="text" className="form-control form-control-sm" placeholder="Search..." />
-            <div className="input-group-append">
-              <button className="btn btn-primary btn-sm" type="submit">
-                <i className="bi bi-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-auto mx-3">
-          <div className="d-inline-block mr-4">
-            <p className="mb-0">
-              <i className="bi bi-plus-circle"></i> Watchlist
-            </p>
-          </div>
-          <div className="d-inline-block mr-4">
-            <a href="/login" className="text-light">
-              Sign in
-            </a>
-          </div>
-          <div className="d-inline-block">
-            <select className="custom-select custom-select-sm">
-              <option value="fr">FR</option>
-              <option value="en">EN</option>
-              <option value="es">ES</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </header> */}
-
-
-<header className="app-bar">
+      <header className="app-bar">
         <img className="app-bar__logo logo" src="filmdb.png" alt="logo" />
         <div className="app-bar__menu" onClick={toggleMenu}>
           <span className="app-bar__menu-icon">☰</span>
@@ -102,15 +77,23 @@ function Header() {
         <div className="app-bar__watchlist">
           <span>Watchlist</span>
         </div>
-        <div className="app-bar__sign-in">
-          <span>Sign In</span>
-        </div>
+
+        {user ? (
+          <div className="logout-container">
+            <button className="btn btn-danger" onClick={handleLogout}>Logout</button> 
+          </div>
+        ) : (
+          <div className="app-bar__sign-in">
+            <a href="/signin"><span>Sign In</span></a>
+          </div>
+        )}
+        
         <div className="app-bar__language">
           <span>EN</span>
           <span>▼</span>
         </div>
       </header>
-  </>
+    </>
   );
 }
 
