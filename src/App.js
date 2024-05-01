@@ -1,17 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-//import Auth from './Auth';
 import Home from './Home';
 import './App.css';
-import SignInSide from './SignInSide';
-import SignUp from './SignUp';
+import SignIn from './Signin';
+import SignUp from './Signup';
 
 function App() {
   return (
     <>       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignInSide />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
 

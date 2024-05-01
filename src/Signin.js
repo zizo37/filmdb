@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
 
 
-function SignInSide() {
+function SignIn() {
   
   const supabase = createClient('https://ksnouxckabitqorjucgz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c');
 
@@ -83,4 +83,4 @@ function SignInSide() {
   );
 }
 
-export default SignInSide;
+export default SignIn;
