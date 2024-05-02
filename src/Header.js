@@ -84,7 +84,7 @@ function Header() {
           </div>
         ) : (
           <div className="app-bar__sign-in">
-            <a href="/signin"><span>Sign In</span></a>
+            <a href="/signin" className="btn btn-warning">Sign In</a>
           </div>
         )}
         
