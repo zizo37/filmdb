@@ -75,7 +75,7 @@ function Header() {
           
         </div>
         <div className="app-bar__watchlist">
-          <span>Watchlist</span>
+          <a href="/watchlist"><span>Watchlist</span></a>
         </div>
 
         {user ? (
@@ -88,9 +88,8 @@ function Header() {
           </div>
         )}
         
-        <div className="app-bar__language">
-          <span>EN</span>
-          <span>▼</span>
+        <div className="app-bar__user">
+          <a href="/user"><span>Username</span></a>
         </div>
       </header>
     </>

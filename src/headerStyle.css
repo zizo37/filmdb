@@ -20,7 +20,7 @@ body {
   .app-bar__imdb-pro,
   .app-bar__watchlist,
   .app-bar__sign-in,
-  .app-bar__language {
+  .app-bar__user {
     display: flex;
     align-items: center;
     cursor: pointer;

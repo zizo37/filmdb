@@ -1,14 +1,14 @@
 import React from 'react';
 
 
-function MoviePage() {
+function Movie() {
     return (
-      <>
+      <div style={{color: 'white'}}>       
         This is MoviePage
-      </>
+      </div>
 
     );
   }
   
-  export default MoviePage;
+  export default Movie;
   
