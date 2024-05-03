@@ -1,12 +1,16 @@
 import React from 'react';
+import Header from './Header';
 
 
 function Watchlist() {
   return (
-    <div style={{color: 'white'}}>       
-      This is Watchlist
+    <>
+      <Header />
+      <div style={{color: 'white'}}>       
+        This is Watchlist
 
-    </div>
+      </div>
+    </>
   );
 }
 
