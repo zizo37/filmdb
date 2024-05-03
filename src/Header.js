@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
+import Search from "./components/navbar/Search";
 
 function Header() {
   return (
-    <h1>This is the header</h1>
+    <>
+      <Search />
+      <h1>This is the header</h1>
+    </>
   );
 }
 
