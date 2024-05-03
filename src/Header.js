@@ -12,6 +12,8 @@ function Header() {
 
   const [user, setUser] = useState(null); // State to store the user object
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(()=>{
 
     // Function to fetch user data
@@ -47,10 +49,21 @@ function Header() {
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
+
+  const handleSearchInput = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <>
       <header className="app-bar">
-        <img className="app-bar__logo logo" src="filmdb.png" alt="logo" />
+        <a href='/'><img className="app-bar__logo logo" src="filmdb.png" alt="logo" /></a>
         <div className="app-bar__menu" onClick={toggleMenu}>
           <span className="app-bar__menu-icon">☰</span>
           <span>Menu</span>
@@ -70,10 +83,21 @@ function Header() {
             </ul>
           </div>
         )}
-        <input className="app-bar__search-field search-field" type="text" placeholder="Search" />
-        <div className="app-bar__imdb-pro">
-          
+        <div className="col mx-3">
+          <form onSubmit={handleSearch} className="d-flex">
+            <input
+              type="text"
+              className="form-control form-control-sm me-2"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleSearchInput}
+            />
+            <button className="btn btn-primary btn-sm" type="submit">
+              <i className="bi bi-search"></i>
+            </button>
+          </form>
         </div>
+
         <div className="app-bar__watchlist">
           <a href="/watchlist"><span>Watchlist</span></a>
         </div>
