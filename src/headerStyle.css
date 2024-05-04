@@ -39,14 +39,16 @@ body {
   }
 
   .logo {
-    width: 120px;
+    width: 100px;
+
   }
 
   /* Menu styles */
   .header-menu {
     position: absolute;
     top: 56px;
-    left: 185px;
+    left: 225px;
+
     background: #121212;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
