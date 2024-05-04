@@ -23,6 +23,7 @@ function Header() {
 
   useEffect(() => {
     const fetchUserData = async () => {
+
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error) {
         console.error("Error fetching user data:", error.message);
@@ -169,6 +170,12 @@ function Header() {
             <button className="btn btn-danger" onClick={handleLogout}>
               Logout
             </button>
+            <Link to="/user" className="app-user-link">
+              <span style={{ fontSize: "13px" }}>
+                {user.user_metadata.name}
+              </span>
+            </Link>
+
           </div>
         ) : (
           <div className="app-bar__sign-in">

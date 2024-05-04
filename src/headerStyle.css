@@ -33,28 +33,20 @@ body {
   align-items: center;
 }
 
-.logo {
-  width: 80px;
-  height: auto;
-}
+  .logo {
+    width: 120px;
+  }
 
-.search-field {
-  background: #fff;
-  height: 30px;
-  width: 300px;
-  border-radius: 20px;
-  padding: 0 10px;
-}
-
-.header-menu {
-  position: absolute;
-  top: 56px;
-  left: 225px;
-  background: #1c1c1c;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
+  /* Menu styles */
+  .header-menu {
+    position: absolute;
+    top: 56px;
+    left: 185px;
+    background: #121212;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
 
 .menu-list {
   list-style: none;
