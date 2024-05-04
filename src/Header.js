@@ -126,7 +126,7 @@ function Header() {
           </div>
         )}
 
-        <div className="col mx-3 relative">
+        <div className="mx-3 w-50">
           <form onSubmit={handleSearch} className="d-flex">
             <input
               type="text"
@@ -191,14 +191,6 @@ function Header() {
           )}
         </div>
 
-        <div className="app-bar__imdb-pro">
-          {/* Add any IMDb Pro content here */}
-        </div>
-
-        <div className="app-bar__language">
-          <span>EN</span>
-          <span>▼</span>
-        </div>
       </header>
 
       {location.pathname.startsWith("/movie/") && (
