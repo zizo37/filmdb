@@ -1,0 +1,155 @@
+/* CSS styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .app-bar {
+    background: #121212;
+    color: #f0f0f0;
+    min-height: 56px;
+    padding: 0 115px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .app-bar__logo,
+  .app-bar__menu,
+  .app-bar__search-field,
+  .app-bar__imdb-pro,
+  .app-bar__watchlist,
+  .app-bar__sign-in,
+  .app-bar__user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 16px;
+  }
+
+  .app-bar__menu-icon {
+    margin-right: 8px;
+  }
+
+  .search-field {
+    background: #FFFFFF;
+    height: 30px;
+    width: 55%;
+    border-radius: 5px;
+  }
+
+  .logo {
+    width: 100px;
+  }
+
+  /* Menu styles */
+  .header-menu {
+    position: absolute;
+    top: 56px;
+    left: 225px;
+    background: #121212;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .menu-item:hover {
+    background-color: #f0f0f0;
+    color: #121212;
+  }
+
+  .menu-item a {
+    text-decoration: none;
+    color: #f0f0f0;
+    display: block;
+  }
+  
+  .menu-item a:hover {
+    color: #121212;
+  }
+  
+
+
+
+  .app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .app-bar__logo {
+    height: 40px;
+  }
+  
+  .app-bar__menu {
+    cursor: pointer;
+  }
+  
+  .app-bar__watchlist a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .app-bar__sign-in a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .app-bar__language {
+    cursor: pointer;
+  }
+  
+  .relative {
+    position: relative;
+  }
+  
+  /* searchResultsDropdown.css */
+  .search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 999;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  
+  .search-result-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .search-result-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .search-result-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 8px;
+  }
+
+
+
+
+  

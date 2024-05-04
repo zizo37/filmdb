@@ -75,56 +75,76 @@ function User() {
     <>
       <Header />
 
-      <main className="container">
-        {session && session.user && (
-          <div className="Credentials">
-            <img src={session.user.user_metadata.picture} alt="profile" />
-            <h1 style={{ color: "white" }}>
-              {session.user.user_metadata.name}
-            </h1>
-            <p style={{ color: "white" }}>
-              FilmDB member since{" "}
-              {new Date(session.user.created_at).toLocaleDateString()}
-            </p>
-          </div>
-        )}
-        <div className="rating">
-          <h2 style={{ color: "gold" }} className="ratingH1">
-            {" "}
-            You Rathing
-          </h2>
-          <p style={{ color: "white" }}>Most Reccently rated</p>
-        </div>
-        <div className="watchlist">
-          <div className="lists">
-            <div className="">
-              <h2 style={{ color: "gold" }}> Your Lists</h2>
-              <a href="./watchlistCreate"> Create New Watchlist</a>
+      <main>
+        <section className="section-one">
+          {session && session.user && (
+            <div className="Credentials">
+              <img src={session.user.user_metadata.picture} alt="profile" />
+              <h1 style={{ color: "white" }}>
+                {session.user.user_metadata.name}
+              </h1>
+              <p style={{ color: "white" }}>
+                FilmDB member since{" "}
+                {new Date(session.user.created_at).toLocaleDateString()}
+              </p>
             </div>
-            <p color="White">Share movie ,</p>
+          )}
+          <div className="rating">
+            <h2 style={{ color: "gold" }} className="ratingH1">
+              {" "}
+              You Rathing
+            </h2>
+            <p style={{ color: "white" }}>Most Reccently rated</p>
           </div>
-          <h2 style={{ color: "gold" }}>Your Watchlist</h2>
-
-          {watchlist.map((item) => (
-            <div style={{ color: "white" }} key={item.movie_id}>
-              {item.movie_id}
+          <div className="watchlist">
+            <div className="lists">
+              <div className="">
+                <h2 style={{ color: "gold" }}> Your Lists</h2>
+                <a href="./watchlistCreate"> Create New Watchlist</a>
+              </div>
+              <p color="White">Share movie ,</p>
             </div>
-          ))}
-        </div>
-        <div className="Recommended">
-          <h2 style={{ color: "gold" }}>Your Recommended</h2>
-          <p style={{ color: "white" }}>Your recommended</p>
-        </div>
-        <div className="Reviews">
-          <h2 style={{ color: "gold" }}>Your Reviews</h2>
-          <p style={{ color: "white" }}>Your reviews</p>
-        </div>
-        <div className="">
-          <h2 style={{ color: "gold" }}>Your Recently Taken Polls</h2>
-          <p style={{ color: "white" }}>Your Recently Taken Polls</p>
+            <h2 style={{ color: "gold" }}>Your Watchlist</h2>
 
-          <p></p>
-        </div>
+            {watchlist.map((item) => (
+              <div style={{ color: "white" }} key={item.movie_id}>
+                {item.movie_id}
+              </div>
+            ))}
+          </div>
+          <div className="Recommended">
+            <h2 style={{ color: "gold" }}>Your Recommended</h2>
+            <p style={{ color: "white" }}>Your recommended</p>
+          </div>
+          <div className="Reviews">
+            <h2 style={{ color: "gold" }}>Your Reviews</h2>
+            <p style={{ color: "white" }}>Your reviews</p>
+          </div>
+          <div className="RecentlyView">
+            <h2 style={{ color: "gold" }}>Your Recently Taken Polls</h2>
+            <p style={{ color: "white" }}>Your Recently Taken Polls</p>
+
+            <p></p>
+          </div>
+        </section>
+        <section className="section-two">
+          <div className="setting">
+            <ul>
+              <li>
+                <a href="">Update Email</a>
+              </li>
+              <li>
+                <a href="">Update Password</a>
+                <li>
+                  <a href=""></a>
+                </li>
+              </li>
+            </ul>
+          </div>
+          <div className="quicklinks"></div>
+          <div className="RatingAnalysse"></div>
+          <div className="Share"></div>
+        </section>
       </main>
       <Footer />
     </>

@@ -1,8 +1,35 @@
 /* body {
 
 } */
-
-.Credentials {
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  gap: 20px;
+}
+.section-one {
+  width: 80%;
+}
+.section-two {
+  position: relative;
+  right: 0;
+  width: 20%;
+  border: 1px white solid;
+  border-radius: 5px;
+}
+.Credentials,
+.watchlist,
+.Recommended,
+.Reviews,
+.rating,
+.RecentlyView {
+  padding: 20px;
   margin: 12px;
-  border-radius: 3px withe solid;
+  border: 1px white solid;
+  border-radius: 5px;
+}
+
+.app-user-link {
+  margin-left: 5px;
 }

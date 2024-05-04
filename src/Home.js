@@ -1,11 +1,14 @@
 import React from 'react';
-import Logout from './Logout';
+import Footer from './Footer';
+import Header from './Header';
+import Content from './Content';
 
 function Home() {
     return (
       <>
-        <Logout />
-        <h1>This is the Home</h1>
+        <Header/>
+        <Content />
+        <Footer/>
       </>
 
     );
