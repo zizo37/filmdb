@@ -15,6 +15,7 @@ function User() {
   const [userData, setUserData] = useState(null);
   const [session, setSession] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
+  const [rating, setRating] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -54,7 +55,7 @@ function User() {
 
   useEffect(() => {
     if (userData) {
-      const fetchWatchlistData = async () => {
+      const fetchRatingData = async () => {
         const { data, error } = await supabase
           .from("ratings")
           .select("movie_id", "rating")
@@ -63,11 +64,11 @@ function User() {
         if (error) {
           console.error("Error fetching watchlist:", error.message);
         } else {
-          setWatchlist(data);
+          setRating(data);
         }
       };
 
-      fetchWatchlistData();
+      fetchRatingData();
     }
   }, [userData]);
 
@@ -95,6 +96,7 @@ function User() {
               You Rathing
             </h2>
             <p style={{ color: "white" }}>Most Reccently rated</p>
+            <p>{rating}</p>
           </div>
           <div className="watchlist">
             <div className="lists">
