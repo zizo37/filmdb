@@ -14,7 +14,7 @@ function Header() {
   );
 
   const navigate = useNavigate();
-  // const location = useLocation();
+  const location = useLocation();
 
   const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,18 +42,21 @@ function Header() {
       }
 
       const options = {
-        method: 'GET',
+        method: "GET",
+        url: "https://imdb8.p.rapidapi.com/auto-complete",
+        params: {
+          q: searchTerm,
+        },
         headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYzI3N2U4NzIyNjA4YTNjOGU1YWNjZmQ0ZTVmZDk0ZSIsInN1YiI6IjY2MTVkMjg2YWM0MTYxMDE3YzkyOTlhYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SCbzx_EgdSfu_R2NVoQ8pGKqwIFfm8tXz-yd3HoLJX8'
-        }
+          "X-RapidAPI-Key":
+            "ba3332dac0msh515089fda960f3dp14f830jsnc01ba0e1578f",
+          "X-RapidAPI-Host": "imdb8.p.rapidapi.com",
+        },
       };
 
       try {
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${searchTerm}`, options);
-        const data = await response.json();
-        setSearchResults(data.results || []);
-        console.log(data.results);
+        const response = await axios.request(options);
+        setSearchResults(response.data.d || []);
       } catch (error) {
         console.error(error);
       }
@@ -100,7 +103,7 @@ function Header() {
   return (
     <>
       <header className="app-bar">
-        <Link to="/" className="logo-link">
+        <Link to="/">
           <img className="app-bar__logo logo" src="filmdb.png" alt="logo" />
         </Link>
         <div className="app-bar__menu" onClick={toggleMenu}>
@@ -144,14 +147,14 @@ function Header() {
                   className="search-result-item d-flex align-items-center"
                   onClick={() => handleSearchResultClick(result)}
                 >
-                  {result.poster_path && (
+                  {result.i && (
                     <img
-                      src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`}
-                      alt={result.title}
+                      src={result.i.imageUrl}
+                      alt={result.l}
                       className="search-result-image"
                     />
                   )}
-                  <span>{result.title}</span>
+                  <span>{result.l}</span>
                 </div>
               ))}
             </div>
@@ -159,7 +162,7 @@ function Header() {
         </div>
 
         <div className="app-bar__watchlist">
-          <Link to="/watchlist" className="nav-link">
+          <Link to="/watchlist">
             <span>Watchlist</span>
           </Link>
         </div>
@@ -172,11 +175,25 @@ function Header() {
           </div>
         ) : (
           <div className="app-bar__sign-in">
-            <Link to="/signin" className="nav-link">
+            <Link to="/signin">
               <span>Sign In</span>
             </Link>
           </div>
         )}
+
+        <div className="app-bar__user">
+          {user ? (
+            <Link to="/user">
+              <span>{user.username}</span>
+            </Link>
+          ) : (
+            <span>Username</span>
+          )}
+        </div>
+
+        <div className="app-bar__imdb-pro">
+          {/* Add any IMDb Pro content here */}
+        </div>
 
         <div className="app-bar__language">
           <span>EN</span>
@@ -184,9 +201,9 @@ function Header() {
         </div>
       </header>
 
-      {/* {location.pathname.startsWith("/movie/") && (
+      {location.pathname.startsWith("/movie/") && (
         <ApiData movieData={location.state} />
-      )} */}
+      )}
     </>
   );
 }
