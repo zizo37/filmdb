@@ -1,155 +1,132 @@
-/* CSS styles */
+/* headerStyle.css */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  .app-bar {
-    background: #121212;
-    color: #f0f0f0;
-    min-height: 56px;
-    padding: 0 115px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.app-bar {
+  background-color: #1c1c1c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
 
-  .app-bar__logo,
-  .app-bar__menu,
-  .app-bar__search-field,
-  .app-bar__imdb-pro,
-  .app-bar__watchlist,
-  .app-bar__sign-in,
-  .app-bar__user {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0 16px;
-  }
+.app-bar__logo,
+.app-bar__menu,
+.app-bar__watchlist,
+.app-bar__sign-in,
+.app-bar__language {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 10px;
+}
 
-  .app-bar__menu-icon {
-    margin-right: 8px;
-  }
+.app-bar__menu-icon {
+  margin-right: 5px;
+}
 
-  .search-field {
-    background: #FFFFFF;
-    height: 30px;
-    width: 55%;
-    border-radius: 5px;
-  }
+.logo-link {
+  display: flex;
+  align-items: center;
+}
 
-  .logo {
-    width: 100px;
-  }
+.logo {
+  width: 80px;
+  height: auto;
+}
 
-  /* Menu styles */
-  .header-menu {
-    position: absolute;
-    top: 56px;
-    left: 225px;
-    background: #121212;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
+.search-field {
+  background: #fff;
+  height: 30px;
+  width: 300px;
+  border-radius: 20px;
+  padding: 0 10px;
+}
 
-  .menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.header-menu {
+  position: absolute;
+  top: 56px;
+  left: 225px;
+  background: #1c1c1c;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
 
-  .menu-item {
-    padding: 8px 16px;
-    cursor: pointer;
-  }
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .menu-item:hover {
-    background-color: #f0f0f0;
-    color: #121212;
-  }
+.menu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+}
 
-  .menu-item a {
-    text-decoration: none;
-    color: #f0f0f0;
-    display: block;
-  }
-  
-  .menu-item a:hover {
-    color: #121212;
-  }
-  
+.menu-item:hover {
+  background-color: #333;
+}
 
+.menu-item a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: color 0.3s ease;
+}
 
+.menu-item a:hover {
+  color: #f5f5f5;
+}
 
-  .app-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .app-bar__logo {
-    height: 40px;
-  }
-  
-  .app-bar__menu {
-    cursor: pointer;
-  }
-  
-  .app-bar__watchlist a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .app-bar__sign-in a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .app-bar__language {
-    cursor: pointer;
-  }
-  
-  .relative {
-    position: relative;
-  }
-  
-  /* searchResultsDropdown.css */
-  .search-results-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 999;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-top: none;
-    padding: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
-    overflow-y: auto;
-    width: 100%;
-  }
-  
-  .search-result-item {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .search-result-item:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .search-result-image {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    margin-right: 8px;
-  }
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
+.nav-link:hover {
+  color: #f5f5f5;
+}
 
+.app-bar__language {
+  cursor: pointer;
+}
 
+.relative {
+  position: relative;
+}
 
-  
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.search-result-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.search-result-item:hover {
+  background-color: #f5f5f5;
+}
+
+.search-result-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 8px;
+}
