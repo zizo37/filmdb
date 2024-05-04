@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'; 
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import './SearchResults.css';
 import Header from './Header';
 
 const SearchResults = () => {
@@ -12,20 +12,20 @@ const SearchResults = () => {
         const fetchSearchResults = async () => {
             const options = {
                 method: 'GET',
-                url: 'https://imdb8.p.rapidapi.com/auto-complete',
-                params: {
-                    q: searchTerm,
-                },
                 headers: {
-                    'X-RapidAPI-Key': 'ba3332dac0msh515089fda960f3dp14f830jsnc01ba0e1578f',
-                    'X-RapidAPI-Host': 'imdb8.p.rapidapi.com',
+                    accept: 'application/json',
+                    Authorization:
+                        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYzI3N2U4NzIyNjA4YTNjOGU1YWNjZmQ0ZTVmZDk0ZSIsInN1YiI6IjY2MTVkMjg2YWM0MTYxMDE3YzkyOTlhYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SCbzx_EgdSfu_R2NVoQ8pGKqwIFfm8tXz-yd3HoLJX8',
                 },
             };
 
             try {
-                const response = await axios.request(options);
-                setSearchResults(response.data.d || []);
-                console.log(response.data.d);
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&language=en-US`,
+                    options
+                );
+                const data = await response.json();
+                setSearchResults(data.results || []);
             } catch (error) {
                 console.error(error);
             }
@@ -41,30 +41,28 @@ const SearchResults = () => {
             <Header />
             <div className="container-fluid bg-dark text-light py-4">
                 <h1 className="text-center mb-4">Search Results for "{searchTerm}"</h1>
-                <div className="row">
+                <div className="row justify-content-center">
                     {searchResults.map((result, index) => {
-                        const title = result.l;
-                        const imageUrl = result.i?.imageUrl;
-                        const id = result.id; // Get the ID from the search result
+                        const title = result.title;
+                        const imageUrl = `https://image.tmdb.org/t/p/w500/${result.poster_path}`;
+                        const id = result.id;
 
                         return (
                             <div className="col-md-4 mb-4" key={index}>
-                                <div className="card bg-dark text-light border border-light">
-                                    <div className="card-body p-0">
-                                        {imageUrl && (
-                                            <img
-                                                src={imageUrl}
-                                                className="card-img-top"
-                                                alt={title}
-                                                style={{ objectFit: 'cover', height: '400px' }}
-                                            />
-                                        )}
-                                        <div className="card-title p-3">
-                                            <h5 className="card-title" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{title}</h5>
-                                            <Link to={`/apidata/${id}`} className="btn btn-primary">
-                                                View Details
-                                            </Link>
-                                        </div>
+                                <div className="card bg-dark text-light h-100">
+                                    {result.poster_path && (
+                                        <img
+                                            src={imageUrl}
+                                            className="card-img-top"
+                                            alt={title}
+                                            style={{ objectFit: 'cover', height: '300px', width: '100%' }}
+                                        />
+                                    )}
+                                    <div className="card-body">
+                                        <h5 className="card-title" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{title}</h5>
+                                        <Link to={`/apidata/${id}`} className="btn btn-primary">
+                                            View Details
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
