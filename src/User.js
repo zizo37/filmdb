@@ -136,14 +136,58 @@ function User() {
               <li>
                 <a href="">Update Password</a>
                 <li>
-                  <a href=""></a>
+                  <a href="">Delete Account</a>
                 </li>
               </li>
             </ul>
           </div>
           <div className="quicklinks"></div>
           <div className="RatingAnalysse"></div>
-          <div className="Share"></div>
+          <div className="Share">
+            <div className="d-flex justify-content-center">
+              <p style={{ fontSize: "14px", paddingRight: "5px" }}> Share</p>
+              <a
+                href="https://www.facebook.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-facebook"></i>
+              </a>
+              <a
+                href="https://twitter.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-twitter"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/imdb/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-instagram"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/imdb-com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-linkedin"></i>
+              </a>
+              <a
+                href="https://www.youtube.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-youtube"></i>
+              </a>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

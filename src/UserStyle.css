@@ -6,17 +6,26 @@ main {
   justify-content: space-between;
   align-items: center;
   margin: 20px;
-  gap: 20px;
+  gap: 10px;
 }
 .section-one {
-  width: 80%;
+  width: 75%;
 }
-.section-two {
-  position: relative;
-  right: 0;
-  width: 20%;
+.section-two,
+.setting,
+.quicklinks,
+.RatingAnalysse,
+.Share {
+  width: 25%;
   border: 1px white solid;
   border-radius: 5px;
+  padding: 5px;
+}
+.setting,
+.quicklinks,
+.RatingAnalysse,
+.Share {
+  width: 100%;
 }
 .Credentials,
 .watchlist,
@@ -32,4 +41,19 @@ main {
 
 .app-user-link {
   margin-left: 5px;
+}
+
+ul {
+  padding-left: 0;
+}
+li {
+  list-style-type: none;
+  /* padding: 0 20px; */
+  width: 100%;
+}
+a {
+  text-decoration: none;
+  padding-right: 20px;
+  font-size: 12px;
+  /* width: 100%; */
 }

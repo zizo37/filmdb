@@ -176,10 +176,8 @@ function Header() {
               Logout
             </button>
             <Link to="/user" className="app-user-link">
-              <span>
-                {" "}
-                <i className="bi bi-person-circle"></i>
-                {user.name}
+              <span style={{ fontSize: "13px" }}>
+                {user.user_metadata.name}
               </span>
             </Link>
           </div>
