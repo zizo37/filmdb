@@ -42,32 +42,27 @@ const SearchResults = () => {
             <div className="container-fluid bg-dark text-light py-4">
                 <h1 className="text-center mb-4">Search Results for "{searchTerm}"</h1>
                 <div className="row justify-content-center">
-                    {searchResults.map((result, index) => {
-                        const title = result.title;
-                        const imageUrl = `https://image.tmdb.org/t/p/w500/${result.poster_path}`;
-                        const id = result.id;
+                {searchResults.map((result, index) => {
+                    const title = result.title;
+                    const imageUrl = `https://image.tmdb.org/t/p/w500/${result.poster_path}`;
+                    const id = result.id;
 
-                        return (
-                            <div className="col-md-4 mb-4" key={index}>
-                                <div className="card bg-dark text-light h-100">
-                                    {result.poster_path && (
-                                        <img
-                                            src={imageUrl}
-                                            className="card-img-top"
-                                            alt={title}
-                                            style={{ objectFit: 'cover', height: '300px', width: '100%' }}
-                                        />
-                                    )}
-                                    <div className="card-body">
-                                        <h5 className="card-title" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{title}</h5>
-                                        <Link to={`/apidata/${id}`} className="btn btn-primary">
-                                            View Details
-                                        </Link>
-                                    </div>
+                    return (
+                        <div className="col-md-4 mb-4" key={index}>
+                            <Link to={`/apidata/${id}`} className="text-decoration-none">
+                                <div
+                                    className="movie-card"
+                                    style={{
+                                        backgroundImage: `url(${imageUrl})`,
+                                    }}
+                                >
+                                    <button className="btn btn-primary">View Details</button>
                                 </div>
-                            </div>
-                        );
-                    })}
+                                <h5 className="text-light mt-2">{title}</h5>
+                            </Link>
+                        </div>
+                    );
+                })}
                 </div>
             </div>
         </>
