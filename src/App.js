@@ -22,7 +22,8 @@ function App() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/movies/:id" element={<Movie />} />
         <Route path="/search" element={<SearchResults />} /> 
-        <Route path="/apidata/:title" element={<Apidata />} />
+        {/* <Route path="/apidata/:title" element={<Apidata />} /> */}
+        <Route path="/apidata/:id" element={<Apidata />} />
       </Routes>
 
     </>

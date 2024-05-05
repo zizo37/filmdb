@@ -102,7 +102,7 @@ function Header() {
     <>
       <header className="app-bar">
         <Link to="/" className="logo-link">
-          <img className="app-bar__logo logo" src="filmdb.png" alt="logo" />
+          <img className="app-bar__logo logo" src="filmdb.png" alt="logo" style={{ width: '100px' }} />
         </Link>
         <div className="app-bar__menu" onClick={toggleMenu}>
           <span className="app-bar__menu-icon">☰</span>
