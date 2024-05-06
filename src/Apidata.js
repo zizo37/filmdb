@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
 import YouTube from 'react-youtube';
+import { createClient } from '@supabase/supabase-js';
 import './Apidata.css';
+
+const supabase = createClient('https://ksnouxckabitqorjucgz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c');
+
 
 const Apidata = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [videos, setVideos] = useState([]);
+  const [user, setUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     async function getData() {
@@ -28,7 +34,7 @@ const Apidata = () => {
           );
           const data = await response.json();
           setMovie(data || null);
-          console.log(data)
+          console.log(data);
         } catch (error) {
           console.error(error);
           setMovie(null);
@@ -54,6 +60,51 @@ const Apidata = () => {
     };
     getVideos();
   }, [movie]);
+
+  const fetchUserData = async () => {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error('Error fetching user data:', error);
+      } else {
+        setUser(data.user || null);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const handleAddToWatchlist = async () => {
+    if (movie && user) {
+      try {
+        const { data, error } = await supabase
+          .from('watchlist')
+          .insert([{ movie_id: movie.id, user_id: user.id }]);
+
+        if (error) {
+          console.error('Error adding to watchlist:', error);
+          setSuccessMessage('');
+        } else {
+          console.log('Movie added to watchlist successfully!');
+          setSuccessMessage(`${movie.title} added to watchlist!`);
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 3000);
+        }
+      } catch (error) {
+        console.error('Error adding to watchlist:', error);
+        setSuccessMessage('');
+      }
+    } else {
+      console.error('Movie or user data is missing');
+      setSuccessMessage('');
+    }
+  };
 
   return (
     <>
@@ -113,6 +164,14 @@ const Apidata = () => {
                       />
                     </div>
                   )}
+                  <button
+                    style={{ marginTop: '20px' }}
+                    onClick={handleAddToWatchlist}
+                    disabled={!movie || !user}
+                  >
+                    Add to Watchlist
+                  </button>
+                  {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                 </div>
               </div>
             </div>
