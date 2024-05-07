@@ -8,9 +8,9 @@ body {
     background: #121212;
     color: #f0f0f0;
     min-height: 56px;
-    padding: 0 115px;
+    padding-left:195px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
   }
 
@@ -40,6 +40,7 @@ body {
 
   .logo {
     width: 100px;
+
   }
 
   /* Menu styles */
@@ -47,6 +48,7 @@ body {
     position: absolute;
     top: 56px;
     left: 225px;
+
     background: #121212;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

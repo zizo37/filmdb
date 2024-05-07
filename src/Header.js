@@ -23,10 +23,8 @@ function Header() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
+
+      const { data: { user }, error } = await supabase.auth.getUser();
       if (error) {
         console.error("Error fetching user data:", error.message);
       } else {
@@ -129,7 +127,7 @@ function Header() {
           </div>
         )}
 
-        <div className="col mx-3 relative">
+        <div className="mx-3 w-50">
           <form onSubmit={handleSearch} className="d-flex">
             <input
               type="text"
@@ -180,6 +178,7 @@ function Header() {
                 {user.user_metadata.name}
               </span>
             </Link>
+
           </div>
         ) : (
           <div className="app-bar__sign-in">
@@ -188,14 +187,17 @@ function Header() {
             </Link>
           </div>
         )}
-        <div className="app-bar__imdb-pro">
-          {/* Add any IMDb Pro content here */}
+
+        <div className="app-bar__user">
+          {user ? (
+            <Link to="/user">
+              <span>{user.username}</span>
+            </Link>
+          ) : (
+            <span>Username</span>
+          )}
         </div>
 
-        <div className="app-bar__language">
-          <span>EN</span>
-          <span>▼</span>
-        </div>
       </header>
 
       {location.pathname.startsWith("/movie/") && (
