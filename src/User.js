@@ -4,6 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
 import "./UserStyle.css";
 import Footer from "./Footer";
+import Userrating from "./components/UserRating";
+import UserWatchist from "./components/UserWatchlist";
 
 // Initialize Supabase client outside of the component
 const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.co";
@@ -14,8 +16,6 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 function User() {
   const [userData, setUserData] = useState(null);
   const [session, setSession] = useState(null);
-  const [watchlist, setWatchlist] = useState([]);
-  const [rating, setRating] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,44 +33,6 @@ function User() {
 
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    if (userData) {
-      const fetchWatchlistData = async () => {
-        const { data, error } = await supabase
-          .from("watchlist")
-          .select("movie_id")
-          .eq("user_id", session.user.id);
-
-        if (error) {
-          console.error("Error fetching watchlist:", error.message);
-        } else {
-          setWatchlist(data);
-        }
-      };
-
-      fetchWatchlistData();
-    }
-  }, [userData]);
-
-  useEffect(() => {
-    if (userData) {
-      const fetchRatingData = async () => {
-        const { data, error } = await supabase
-          .from("ratings")
-          .select("movie_id", "rating")
-          .eq("user_id", session.user.id);
-
-        if (error) {
-          console.error("Error fetching watchlist:", error.message);
-        } else {
-          setRating(data);
-        }
-      };
-
-      fetchRatingData();
-    }
-  }, [userData]);
 
   return (
     <>
@@ -90,30 +52,9 @@ function User() {
               </p>
             </div>
           )}
-          <div className="rating">
-            <h2 style={{ color: "gold" }} className="ratingH1">
-              {" "}
-              You Rathing
-            </h2>
-            <p style={{ color: "white" }}>Most Reccently rated</p>
-            <p>{rating}</p>
-          </div>
-          <div className="watchlist">
-            <div className="lists">
-              <div className="">
-                <h2 style={{ color: "gold" }}> Your Lists</h2>
-                <a href="./watchlistCreate"> Create New Watchlist</a>
-              </div>
-              <p color="White">Share movie ,</p>
-            </div>
-            <h2 style={{ color: "gold" }}>Your Watchlist</h2>
 
-            {watchlist.map((item) => (
-              <div style={{ color: "white" }} key={item.movie_id}>
-                {item.movie_id}
-              </div>
-            ))}
-          </div>
+          <Userrating />
+          <UserWatchist />
           <div className="Recommended">
             <h2 style={{ color: "gold" }}>Your Recommended</h2>
             <p style={{ color: "white" }}>Your recommended</p>
