@@ -74,7 +74,7 @@ function User() {
           <div className="setting">
             <ul>
               <li>
-                <a href="">Update Email</a>
+                <a href="/update-Email">Update Email</a>
               </li>
               <li>
                 <a href="">Update Password</a>
