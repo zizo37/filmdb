@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
-import axios from "axios";
 import "./App.css";
 import "./headerStyle.css";
 import "./searchResultsDropdown.css";
-import ApiData from "./Apidata";
 
 function Header() {
   const supabase = createClient(
@@ -95,7 +93,7 @@ function Header() {
   };
 
   const handleSearchResultClick = (result) => {
-    navigate(`/apidata/${result.id}`, { state: result });
+    navigate(`/movie/${result.id}`, { state: result });
   };
 
   return (
@@ -185,15 +183,8 @@ function Header() {
           </div>
         )}
 
-        <div className="app-bar__language">
-          <span>EN</span>
-          <span>▼</span>
-        </div>
       </header>
 
-      {/* {location.pathname.startsWith("/movie/") && (
-        <ApiData movieData={location.state} />
-      )} */}
     </>
   );
 }
