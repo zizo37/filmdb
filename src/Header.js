@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
-import axios from "axios";
 import "./App.css";
 import "./headerStyle.css";
 import "./searchResultsDropdown.css";
-import ApiData from "./Apidata";
 
 function Header() {
   const supabase = createClient(
@@ -14,7 +12,7 @@ function Header() {
   );
 
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,21 +41,18 @@ function Header() {
       }
 
       const options = {
-        method: "GET",
-        url: "https://imdb8.p.rapidapi.com/auto-complete",
-        params: {
-          q: searchTerm,
-        },
+        method: 'GET',
         headers: {
-          "X-RapidAPI-Key":
-            "ba3332dac0msh515089fda960f3dp14f830jsnc01ba0e1578f",
-          "X-RapidAPI-Host": "imdb8.p.rapidapi.com",
-        },
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYzI3N2U4NzIyNjA4YTNjOGU1YWNjZmQ0ZTVmZDk0ZSIsInN1YiI6IjY2MTVkMjg2YWM0MTYxMDE3YzkyOTlhYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SCbzx_EgdSfu_R2NVoQ8pGKqwIFfm8tXz-yd3HoLJX8'
+        }
       };
 
       try {
-        const response = await axios.request(options);
-        setSearchResults(response.data.d || []);
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${searchTerm}`, options);
+        const data = await response.json();
+        setSearchResults(data.results || []);
+        console.log(data.results);
       } catch (error) {
         console.error(error);
       }
@@ -98,14 +93,14 @@ function Header() {
   };
 
   const handleSearchResultClick = (result) => {
-    navigate(`/apidata/${result.id}`, { state: result });
+    navigate(`/movie/${result.id}`, { state: result });
   };
 
   return (
     <>
       <header className="app-bar">
-        <Link to="/">
-          <img className="app-bar__logo logo" src="filmdb.png" alt="logo" />
+        <Link to="/" className="logo-link">
+          <img className="app-bar__logo logo" src="filmdb.png" alt="logo" style={{ width: '100px' }} />
         </Link>
         <div className="app-bar__menu" onClick={toggleMenu}>
           <span className="app-bar__menu-icon">☰</span>
@@ -127,7 +122,7 @@ function Header() {
           </div>
         )}
 
-        <div className="mx-3 w-50">
+        <div className="col mx-3 relative">
           <form onSubmit={handleSearch} className="d-flex">
             <input
               type="text"
@@ -148,14 +143,14 @@ function Header() {
                   className="search-result-item d-flex align-items-center"
                   onClick={() => handleSearchResultClick(result)}
                 >
-                  {result.i && (
+                  {result.poster_path && (
                     <img
-                      src={result.i.imageUrl}
-                      alt={result.l}
+                      src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`}
+                      alt={result.title}
                       className="search-result-image"
                     />
                   )}
-                  <span>{result.l}</span>
+                  <span>{result.title}</span>
                 </div>
               ))}
             </div>
@@ -163,7 +158,7 @@ function Header() {
         </div>
 
         <div className="app-bar__watchlist">
-          <Link to="/watchlist">
+          <Link to="/watchlist" className="nav-link">
             <span>Watchlist</span>
           </Link>
         </div>
@@ -182,27 +177,14 @@ function Header() {
           </div>
         ) : (
           <div className="app-bar__sign-in">
-            <Link to="/signin">
+            <Link to="/signin" className="nav-link">
               <span>Sign In</span>
             </Link>
           </div>
         )}
 
-        <div className="app-bar__user">
-          {user ? (
-            <Link to="/user">
-              <span>{user.username}</span>
-            </Link>
-          ) : (
-            <span>Username</span>
-          )}
-        </div>
-
       </header>
 
-      {location.pathname.startsWith("/movie/") && (
-        <ApiData movieData={location.state} />
-      )}
     </>
   );
 }

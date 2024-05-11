@@ -6,9 +6,8 @@ import SignIn from "./SignInSide";
 import SignUp from "./SignUpSide";
 import User from "./User";
 import Watchlist from "./Watchlist";
-import Movie from "./MoviePage";
+import Movie from "./Movie";
 import SearchResults from "./SearchResults";
-import Apidata from "./Apidata";
 import UserUpdateEmail from "./components/UserEmailUpdate";
 import UserUpdatePassword from "./components/UserPasswordUpdate";
 import UserDeleteAccount from "./components/UserDeleteAccount";
@@ -24,7 +23,6 @@ function App() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/movies/:id" element={<Movie />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/apidata/:title" element={<Apidata />} />
         <Route path="/update-Email" element={<UserUpdateEmail />} />
         <Route path="/update-Password" element={<UserUpdatePassword />} />
         <Route path="/delete-account" element={<UserDeleteAccount />} />
