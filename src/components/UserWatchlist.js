@@ -14,12 +14,21 @@ const MovieCard = ({ movie }) => {
     <div
       style={{ color: "white", textAlign: "center" }}
       onClick={handleMovieClick}
-      className="movie-card"
+      style={{
+        backgroundColor: "#000",
+        color: "#fff",
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+        margin: "10px",
+        width: "250px",
+        height: "300px",
+      }}
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         alt={movie.title}
-        // style={{ width: "200px", height: "200px" }}
+        style={{ width: "200px", height: "200px" }}
       />
       <h3 style={{ fontSize: "20px", margin: "10px auto" }}>
         Title: {movie.title}
@@ -109,15 +118,8 @@ const UserWatchlist = () => {
   return (
     <div className="watchlist">
       <div className="lists">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <div>
           <h2 style={{ color: "gold" }}>Your Lists</h2>
-          <a href="./watchlistCreate">Create New Watchlist</a>
         </div>
         <p color="white">Share movie,</p>
       </div>

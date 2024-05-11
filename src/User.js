@@ -82,11 +82,6 @@ function User() {
             <p></p>
           </div>
         </section>
-        <section className="section-two">
-          <div className="setting"></div>
-          <div className="quicklinks"></div>
-          <div className="RatingAnalysse"></div>
-        </section>
       </main>
       <Footer />
     </>
