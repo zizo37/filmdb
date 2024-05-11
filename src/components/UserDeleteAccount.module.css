@@ -1,6 +1,6 @@
 .formContainer {
   max-width: 400px;
-  margin: 11rem auto;
+  margin: 10rem auto;
   padding: 20px;
   background-color: #f2f2f2;
   border-radius: 4px;
@@ -37,4 +37,9 @@
 
 .confirmationMessage p {
   margin: 0;
+}
+p {
+  padding: 12px;
+  font-size: 20px;
+  line-height: 2rem;
 }
