@@ -42,14 +42,26 @@ function User() {
         <section className="section-one">
           {session && session.user && (
             <div className="Credentials">
-              <img src={session.user.user_metadata.picture} alt="profile" />
-              <h1 style={{ color: "white" }}>
-                {session.user.user_metadata.name}
-              </h1>
-              <p style={{ color: "white" }}>
-                FilmDB member since{" "}
-                {new Date(session.user.created_at).toLocaleDateString()}
-              </p>
+              <div>
+                <img src={session.user.user_metadata.picture} alt="profile" />
+                <h1 style={{ color: "white" }}>
+                  {session.user.user_metadata.name}
+                </h1>
+                <p style={{ color: "white" }}>
+                  FilmDB member since{" "}
+                  {new Date(session.user.created_at).toLocaleDateString()}
+                </p>
+              </div>
+              <div>
+                <ul>
+                  <li>
+                    <a href="/update-Password">Update Password</a>
+                  </li>
+                  <li>
+                    <a href="/delete-account">Delete Account</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
 
@@ -68,68 +80,6 @@ function User() {
             <p style={{ color: "white" }}>Your Recently Taken Polls</p>
 
             <p></p>
-          </div>
-        </section>
-        <section className="section-two">
-          <div className="setting">
-            <ul>
-              <li>
-                <a href="/update-Email">Update Email</a>
-              </li>
-              <li>
-                <a href="/update-Password">Update Password</a>
-                <li>
-                  <a href="/delete-account">Delete Account</a>
-                </li>
-              </li>
-            </ul>
-          </div>
-          <div className="quicklinks"></div>
-          <div className="RatingAnalysse"></div>
-          <div className="Share">
-            <div className="d-flex justify-content-center">
-              <p style={{ fontSize: "14px", paddingRight: "5px" }}> Share</p>
-              <a
-                href="https://www.facebook.com/imdb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white mx-2"
-              >
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a
-                href="https://twitter.com/imdb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white mx-2"
-              >
-                <i className="bi bi-twitter"></i>
-              </a>
-              <a
-                href="https://www.instagram.com/imdb/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white mx-2"
-              >
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/imdb-com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white mx-2"
-              >
-                <i className="bi bi-linkedin"></i>
-              </a>
-              <a
-                href="https://www.youtube.com/imdb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white mx-2"
-              >
-                <i className="bi bi-youtube"></i>
-              </a>
-            </div>
           </div>
         </section>
       </main>

@@ -2,41 +2,35 @@
 
 } */
 main {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 20px;
-  gap: 10px;
 }
 .section-one {
-  width: 75%;
+  width: 100%;
+  padding: 0 10px;
 }
-.section-two,
-.setting,
-.quicklinks,
-.RatingAnalysse,
-.Share {
-  width: 25%;
-  border: 1px white solid;
-  border-radius: 5px;
-  padding: 5px;
-}
+
 .setting,
 .quicklinks,
 .RatingAnalysse,
 .Share {
   width: 100%;
 }
+.Credentials {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Credentials,
-.watchlist,
 .Recommended,
 .Reviews,
+.watchlist,
 .rating,
 .RecentlyView {
   padding: 20px;
   margin: 12px;
   border: 1px white solid;
   border-radius: 5px;
+  box-shadow: ;
 }
 
 .app-user-link {
@@ -48,11 +42,21 @@ ul {
 }
 li {
   list-style-type: none;
-  /* padding: 0 20px; */
+  padding: 10px 0px;
   width: 100%;
 }
 a {
   text-decoration: none;
-  padding-right: 20px;
-  font-size: 12px;
+
+  font-size: 18px;
+}
+
+.movie_card:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  transform: scale(1.02);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(245, 207, 18, 0.8)
+  );
 }
