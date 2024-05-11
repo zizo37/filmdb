@@ -36,6 +36,7 @@ const UserWatchlist = () => {
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
   const [session, setSession] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
+
   const [movies, setMovies] = useState([]);
 
   const [userData, setUserData] = useState(null);
@@ -68,6 +69,7 @@ const UserWatchlist = () => {
           console.error("Error fetching watchlist:", error.message);
         } else {
           setWatchlist(data);
+
           console.log(data);
         }
       };
@@ -95,10 +97,12 @@ const UserWatchlist = () => {
       // .then(console.log(movie))
       .catch((err) => console.error(err));
   };
+
   useEffect(() => {
     watchlist.forEach((item) => {
       fetchMovieDetails(item.movie_id);
     });
+
     setMovies([]);
   }, [watchlist]);
 
