@@ -1,8 +1,33 @@
 import { createClient } from "@supabase/supabase-js";
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
-// import { useTransition, animated } from "react-spring";
-import { useTransition, animated } from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
+
+const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const handleMovieClick = () => {
+    navigate(`/movies/${movie.id}`);
+  };
+
+  return (
+    <div
+      style={{ color: "white", textAlign: "center" }}
+      onClick={handleMovieClick}
+      className="movie-card"
+    >
+      <img
+        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        alt={movie.title}
+        style={{ width: "200px", height: "200px" }}
+      />
+      <h3 style={{ fontSize: "20px", margin: "10px auto" }}>
+        Title: {movie.title}
+      </h3>
+      {/* <p>Overview: {movie.overview}</p> */}
+    </div>
+  );
+};
 
 const UserWatchlist = () => {
   const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.co";
@@ -11,10 +36,9 @@ const UserWatchlist = () => {
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
   const [session, setSession] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   const [userData, setUserData] = useState(null);
-  const [movie_id, setMovie_id] = useState(null);
-  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,13 +49,12 @@ const UserWatchlist = () => {
       } else {
         setSession(data.session);
         setUserData(data.session.user);
-        console.log(session);
-        console.log(userData);
       }
     };
 
     fetchUserData();
   }, []);
+
   useEffect(() => {
     if (userData) {
       const fetchWatchlistData = async () => {
@@ -45,45 +68,39 @@ const UserWatchlist = () => {
           console.error("Error fetching watchlist:", error.message);
         } else {
           setWatchlist(data);
-          setMovie_id(data.movie_id);
-          // eslint-disable-next-line array-callback-return
+          console.log(data);
         }
       };
 
       fetchWatchlistData();
     }
   }, [userData]);
-  const fetchMovieDetails = async () => {
+
+  const fetchMovieDetails = async (movieId) => {
     const options = {
       method: "GET",
-      url: `https://imdb-top-100-movies.p.rapidapi.com/${movie_id}`,
       headers: {
-        "X-RapidAPI-Key": "ba3332dac0msh515089fda960f3dp14f830jsnc01ba0e1578f",
-        "X-RapidAPI-Host": "imdb-top-100-movies.p.rapidapi.com",
+        accept: "application/json",
+        Authorization: "Bearer b2efe9b0108d8645f514bc9b0363d199",
       },
     };
 
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-      setMovie(response.data);
-      // Mettez à jour l'état ou le composant avec les informations détaillées du film
-    } catch (error) {
-      console.error(error);
-    }
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=b2efe9b0108d8645f514bc9b0363d199`,
+      options
+    )
+      .then((response) => response.json())
+      // .then((response) => console.log(response))
+      .then((response) => setMovies((prevMovies) => [...prevMovies, response]))
+      // .then(console.log(movie))
+      .catch((err) => console.error(err));
   };
-
   useEffect(() => {
     watchlist.forEach((item) => {
       fetchMovieDetails(item.movie_id);
     });
+    setMovies([]);
   }, [watchlist]);
-
-  const transitions = useTransition(watchlist, {
-    from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
-    enter: { opacity: 1, transform: "translate3d(0,0px,0)" },
-    leave: { opacity: 0, transform: "translate3d(0,-40px,0)" },
-  });
 
   return (
     <div className="watchlist">
@@ -95,24 +112,28 @@ const UserWatchlist = () => {
             justifyContent: "space-between",
           }}
         >
-          <h2 style={{ color: "gold" }}> Your Lists</h2>
-          <a href="./watchlistCreate"> Create New Watchlist</a>
+          <h2 style={{ color: "gold" }}>Your Lists</h2>
+          <a href="./watchlistCreate">Create New Watchlist</a>
         </div>
-        <p color="White">Share movie ,</p>
+        <p color="white">Share movie,</p>
       </div>
       <h2 style={{ color: "gold" }}>Your Watchlist</h2>
-      {watchlist && movie ? (
-        transitions((style, movie) => (
-          <animated.div
-            style={{ ...style, color: "white" }}
-            key={movie.movie_id}
-          >
-            Movie ID: {movie.title}
-          </animated.div>
-        ))
-      ) : (
-        <p>No watchlist available.</p>
-      )}
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          margin: "10px",
+        }}
+      >
+        {movies.length > 0 ? (
+          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        ) : (
+          <div>No movie in the watch List</div>
+        )}
+      </div>
     </div>
   );
 };

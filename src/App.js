@@ -10,6 +10,8 @@ import Movie from "./MoviePage";
 import SearchResults from "./SearchResults";
 import Apidata from "./Apidata";
 import UserUpdateEmail from "./components/UserEmailUpdate";
+import UserUpdatePassword from "./components/UserPasswordUpdate";
+import UserDeleteAccount from "./components/UserDeleteAccount";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/search" element={<SearchResults />} />
         <Route path="/apidata/:title" element={<Apidata />} />
         <Route path="/update-Email" element={<UserUpdateEmail />} />
+        <Route path="/update-Password" element={<UserUpdatePassword />} />
+        <Route path="/delete-account" element={<UserDeleteAccount />} />
       </Routes>
     </>
   );

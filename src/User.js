@@ -77,9 +77,9 @@ function User() {
                 <a href="/update-Email">Update Email</a>
               </li>
               <li>
-                <a href="">Update Password</a>
+                <a href="/update-Password">Update Password</a>
                 <li>
-                  <a href="">Delete Account</a>
+                  <a href="/delete-account">Delete Account</a>
                 </li>
               </li>
             </ul>
