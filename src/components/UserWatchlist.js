@@ -12,7 +12,6 @@ const MovieCard = ({ movie }) => {
 
   return (
     <div
-      style={{ color: "white", textAlign: "center" }}
       onClick={handleMovieClick}
       style={{
         backgroundColor: "#000",
@@ -23,7 +22,9 @@ const MovieCard = ({ movie }) => {
         margin: "10px",
         width: "250px",
         height: "300px",
+        textAlign: "center",
       }}
+      className="movie_card"
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

@@ -50,3 +50,28 @@ a {
 
   font-size: 18px;
 }
+
+.movie_card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(245, 207, 18, 0.8)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+.movie_card:hover::before {
+  opacity: 1;
+}
+.movie_card:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  transform: scale(1.02);
+}
