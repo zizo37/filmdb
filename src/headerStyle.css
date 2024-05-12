@@ -123,3 +123,10 @@ body {
   object-fit: cover;
   margin-right: 8px;
 }
+
+.logout-container{
+  width: 10vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

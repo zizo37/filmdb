@@ -122,7 +122,7 @@ function Header() {
           </div>
         )}
 
-        <div className="col mx-3 relative">
+        <div className="col-6">
           <form onSubmit={handleSearch} className="d-flex">
             <input
               type="text"
@@ -168,17 +168,15 @@ function Header() {
             <button className="btn btn-danger" onClick={handleLogout}>
               Logout
             </button>
-            <Link to="/user" className="app-user-link">
-              <span style={{ fontSize: "13px" }}>
-                {user.user_metadata.name}
-              </span>
+            <Link to="/user" className="nav-link">
+              <span>Profil</span>
             </Link>
 
           </div>
         ) : (
           <div className="app-bar__sign-in">
             <Link to="/signin" className="nav-link">
-              <span>Sign In</span>
+              <button className="btn btn-warning mb-3" style={{ padding: '0.5rem', border: 'none', borderRadius: '4px', cursor: 'pointer', marginBottom: '0.5rem' }}>Sign in</button>
             </Link>
           </div>
         )}
