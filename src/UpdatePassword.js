@@ -26,7 +26,8 @@ function UpdatePassword() {
       if (error) {
         setErrorMessage(error.message);
       } else {
-        setSuccessMessage('Password updated successfully. You can now sign in');
+        setSuccessMessage('Password updated successfully.');
+        navigate('/')
       }
     } catch (error) {
       console.error('Error updating password:', error.message);
@@ -36,7 +37,7 @@ function UpdatePassword() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <div style={{ padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
           <img src="filmdb.png" alt="logo" style={{ width: '150px' }} />
         </div>
