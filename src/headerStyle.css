@@ -23,7 +23,7 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0 20px; /* Increased padding */
 }
 
 .app-bar__menu-icon {
@@ -127,4 +127,14 @@ body {
   height: 40px;
   object-fit: cover;
   margin-right: 8px;
+}
+
+.logout-container {
+  display: flex;
+  align-items: center;
+}
+
+.logout-container button,
+.logout-container a {
+  margin-left: 10px; /* Added margin between logout button and profile link */
 }

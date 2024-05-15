@@ -103,7 +103,8 @@ function Header() {
   };
 
   return (
-    <header className="app-bar">
+    <>
+      <header className="app-bar">
         <Link to="/" className="logo-link">
           <img
             className="app-bar__logo logo"
@@ -190,15 +191,8 @@ function Header() {
           </div>
         )}
 
-        <div className="app-bar__language">
-          <span>EN</span>
-          <span>▼</span>
-        </div>
+      
       </header>
-
-      {/* {location.pathname.startsWith("/movie/") && (
-        <ApiData movieData={location.state} />
-      )} */}
     </>
   );
 }

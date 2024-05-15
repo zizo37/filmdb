@@ -1,15 +1,19 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './Home';
-import './App.css';
-import SignIn from './SignInSide';
-import SignUp from './SignUpSide';
-import User from './User';
-import Watchlist from './Watchlist';
-import Movie from './MoviePage';
-import SearchResults from './SearchResults';
-import Apidata from './Apidata';
-
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import "./App.css";
+import SignIn from "./SignInSide";
+import SignUp from "./SignUpSide";
+import ForgotPassword from "./ForgotPassword";
+import UpdatePassword from "./UpdatePassword";
+import User from "./User";
+import Watchlist from "./Watchlist";
+import Movie from "./Movie";
+import SearchResults from "./SearchResults";
+import UserUpdatePassword from "./components/UserPasswordUpdate";
+import UserDeleteAccount from "./components/UserDeleteAccount";
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 
 function App() {
   return (
@@ -23,9 +27,11 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/movies/:id" element={<Movie />} />
-        <Route path="/search" element={<SearchResults />} /> 
-        {/* <Route path="/apidata/:title" element={<Apidata />} /> */}
-        <Route path="/apidata/:id" element={<Apidata />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/update-Password" element={<UserUpdatePassword />} />
+        <Route path="/delete-account" element={<UserDeleteAccount />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
       </Routes>
     </>
   );
