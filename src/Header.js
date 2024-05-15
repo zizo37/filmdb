@@ -132,7 +132,7 @@ function Header() {
           </div>
         )}
 
-<div className="col mx-3 relative">
+        <div className="col mx-3 relative">
           <form onSubmit={handleSearch} className="d-flex">
             <input
               type="text"
@@ -185,22 +185,21 @@ function Header() {
         ) : (
           <div className="app-bar__sign-in">
             <Link to="/signin" className="nav-link">
-              <button
-                className="btn btn-warning mb-3"
-                style={{
-                  padding: "0.5rem",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Sign in
-              </button>
+              <span>Sign In</span>
             </Link>
           </div>
         )}
+
+        <div className="app-bar__language">
+          <span>EN</span>
+          <span>▼</span>
+        </div>
       </header>
+
+      {/* {location.pathname.startsWith("/movie/") && (
+        <ApiData movieData={location.state} />
+      )} */}
+    </>
   );
 }
 

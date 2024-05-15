@@ -128,34 +128,3 @@ body {
   object-fit: cover;
   margin-right: 8px;
 }
-
-.logout-container {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Added gap between elements */
-}
-
-
-
-.card {
-  transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.col {
-  animation: fadeIn 0.5s ease-in-out;
-}

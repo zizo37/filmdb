@@ -4,7 +4,8 @@ const Footer = () => {
 
 
   return (
-<footer className="container-fluid bg-dark text-white d-flex flex-column justify-content-center align-items-center py-3" >
+    <footer className="container-fluid bg-dark text-white d-flex flex-column justify-content-center align-items-center py-3">
+      <button className="btn btn-warning mb-3">Sign in for more access</button>
       <div className="d-flex justify-content-center">
         <a href="https://www.facebook.com/imdb" target="_blank" rel="noopener noreferrer" className="mx-2">
           <i className="bi bi-facebook"></i>
