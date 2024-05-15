@@ -1,3 +1,4 @@
+/* headerStyle.css */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -41,11 +42,12 @@ body {
 .header-menu {
   position: absolute;
   top: 56px;
-  left: 185px;
+  left: 0; /* Changed from 185px */
   background: #121212;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  min-width: 200px;
 }
 
 .menu-list {
@@ -55,8 +57,9 @@ body {
 }
 
 .menu-item {
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .menu-item:hover {
@@ -68,6 +71,7 @@ body {
   color: #fff;
   display: block;
   transition: color 0.3s ease;
+  font-size: 16px;
 }
 
 .menu-item a:hover {
@@ -111,6 +115,7 @@ body {
 .search-result-item {
   padding: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .search-result-item:hover {
@@ -122,4 +127,35 @@ body {
   height: 40px;
   object-fit: cover;
   margin-right: 8px;
+}
+
+.logout-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Added gap between elements */
+}
+
+
+
+.card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.col {
+  animation: fadeIn 0.5s ease-in-out;
 }

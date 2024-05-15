@@ -49,7 +49,7 @@ const SearchResults = () => {
 
                     return (
                         <div className="col-md-4 mb-4" key={index}>
-                            <Link to={`/apidata/${id}`} className="text-decoration-none">
+                            <Link to={`/movie/${id}`} className="text-decoration-none">
                                 <div
                                     className="movie-card"
                                     style={{
