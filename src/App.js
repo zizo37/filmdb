@@ -24,7 +24,7 @@ function App() {
         <Route path="/updatepassword" element={<UpdatePassword />} />
         <Route path="/user" element={<User />} />
         <Route path="/watchlist" element={<Watchlist />} />
-        <Route path="/movies/:id" element={<Movie />} />
+        <Route path="/movie/:id" element={<Movie />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/update-Password" element={<UserUpdatePassword />} />
         <Route path="/delete-account" element={<UserDeleteAccount />} />
