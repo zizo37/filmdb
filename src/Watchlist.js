@@ -101,7 +101,7 @@ const Watchlist = () => {
           <span className="watchlist-title-highlight">Watchlist</span>
         </h1>
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h4>{sortedMovieData.length} movies</h4>
+          <h4 className="text-white">{sortedMovieData.length} movies</h4>
           <div>
             <button
               className={`btn btn-${view === 'design1' ? 'primary' : 'secondary'} me-2`}
@@ -121,7 +121,7 @@ const Watchlist = () => {
           <>
             <div className="d-flex justify-content-between align-items-center mb-4">
               <div>
-                <label className="me-2" htmlFor="sortSelect">Sort by:</label>
+                <label className="me-2 text-white" htmlFor="sortSelect">Sort by:</label>
                 <select
                   id="sortSelect"
                   className="form-select d-inline-block w-auto"
@@ -146,13 +146,13 @@ const Watchlist = () => {
                       style={{ cursor: 'pointer' }} 
                     />
                     <div className="flex-grow-1">
-                      <h5 className="mb-1">{movie.title}</h5>
-                      <p className="mb-1">{movie.release_date.substr(0, 4)}</p>
+                      <h5 className="mb-1 text-white">{movie.title}</h5>
+                      <p className="mb-1 text-white">{movie.release_date.substr(0, 4)}</p>
                       <div className="d-flex align-items-center mb-2">
                         <i className="bi bi-star-fill text-warning me-2"></i>
-                        <span>{movie.vote_average.toFixed(2)}</span>
+                        <span className='text-white'>{movie.vote_average.toFixed(2)}</span>
                       </div>
-                      <p className="watchlist-movie-overview">{movie.overview}</p>
+                      <p className="watchlist-movie-overview text-white">{movie.overview}</p>
                       <div className="watchlist-movie-genres">
                         {movie.genres.map((genre) => (
                           <span key={genre.id} className="badge bg-secondary me-1">
