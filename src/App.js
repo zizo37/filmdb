@@ -12,6 +12,8 @@ import Movie from "./Movie";
 import SearchResults from "./SearchResults";
 import UserUpdatePassword from "./components/UserPasswordUpdate";
 import UserDeleteAccount from "./components/UserDeleteAccount";
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <Route path="/search" element={<SearchResults />} />
         <Route path="/update-Password" element={<UserUpdatePassword />} />
         <Route path="/delete-account" element={<UserDeleteAccount />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
       </Routes>
     </>
   );

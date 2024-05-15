@@ -1,3 +1,4 @@
+/* headerStyle.css */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,7 +23,7 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0 20px; /* Increased padding */
 }
 
 .app-bar__menu-icon {
@@ -41,11 +42,12 @@ body {
 .header-menu {
   position: absolute;
   top: 56px;
-  left: 185px;
+  left: 0; /* Changed from 185px */
   background: #121212;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  min-width: 200px;
 }
 
 .menu-list {
@@ -55,8 +57,9 @@ body {
 }
 
 .menu-item {
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .menu-item:hover {
@@ -68,6 +71,7 @@ body {
   color: #fff;
   display: block;
   transition: color 0.3s ease;
+  font-size: 16px;
 }
 
 .menu-item a:hover {
@@ -111,6 +115,7 @@ body {
 .search-result-item {
   padding: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .search-result-item:hover {
@@ -124,9 +129,12 @@ body {
   margin-right: 8px;
 }
 
-.logout-container{
-  width: 10vw;
+.logout-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+.logout-container button,
+.logout-container a {
+  margin-left: 10px; /* Added margin between logout button and profile link */
 }

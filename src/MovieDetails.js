@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaStar, FaCalendarAlt, FaDownload } from 'react-icons/fa';
+import { IoIosClose } from 'react-icons/io';
+import './MovieDetails.css';
+
+
 
 const MovieDetails = ({ movie, onClose }) => {
   const fetchMovieDetails = async () => {
@@ -26,21 +31,31 @@ const MovieDetails = ({ movie, onClose }) => {
   }, [movie]);
 
   return (
-    <div className="modal" style={{ display: 'block' }}>
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content bg-dark text-light">
-          <div className="modal-header">
-            <h5 className="modal-title">{movie.title}</h5>
-            <button type="button" className="close" onClick={onClose}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>Rating: {movie.vote_average}</p>
-            <p>Year: {movie.release_date.slice(0,4)}</p>
-            {/* <p>Genre: {movie.genre.join(', ')}</p> */}
-            <p>Description: {movie.overview}</p>
-            {/* Add more detailed movie information here */}
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <div className="modal-header">
+          <IoIosClose className="close-icon" onClick={onClose} />
+        </div>
+        <div className="modal-body">
+          <div className="movie-details">
+            <div className="movie-poster">
+              <img
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </div>
+            <div className="movie-info">
+              <h2 className="movie-title">{movie.title}</h2>
+              <div className="movie-rating">
+                <FaStar className="rating-icon" />
+                <span>{movie.vote_average}</span>
+              </div>
+              <div className="movie-year">
+                <FaCalendarAlt className="year-icon" />
+                <span>{movie.release_date.slice(0, 4)}</span>
+              </div>
+              <p className="movie-overview">{movie.overview}</p>
+            </div>
           </div>
         </div>
       </div>
