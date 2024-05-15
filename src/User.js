@@ -4,8 +4,6 @@ import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
 import "./UserStyle.css";
 import Footer from "./Footer";
-import Userrating from "./components/UserRating";
-import UserWatchist from "./components/UserWatchlist";
 
 // Initialize Supabase client outside of the component
 const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.co";
@@ -16,6 +14,8 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 function User() {
   const [userData, setUserData] = useState(null);
   const [session, setSession] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
+  const [rating, setRating] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -34,6 +34,44 @@ function User() {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    if (userData) {
+      const fetchWatchlistData = async () => {
+        const { data, error } = await supabase
+          .from("watchlist")
+          .select("movie_id")
+          .eq("user_id", session.user.id);
+
+        if (error) {
+          console.error("Error fetching watchlist:", error.message);
+        } else {
+          setWatchlist(data);
+        }
+      };
+
+      fetchWatchlistData();
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData) {
+      const fetchRatingData = async () => {
+        const { data, error } = await supabase
+          .from("ratings")
+          .select("movie_id", "rating")
+          .eq("user_id", session.user.id);
+
+        if (error) {
+          console.error("Error fetching watchlist:", error.message);
+        } else {
+          setRating(data);
+        }
+      };
+
+      fetchRatingData();
+    }
+  }, [userData]);
+
   return (
     <>
       <Header />
@@ -42,31 +80,40 @@ function User() {
         <section className="section-one">
           {session && session.user && (
             <div className="Credentials">
-              <div>
-                <img src={session.user.user_metadata.picture} alt="profile" />
-                <h1 style={{ color: "white" }}>
-                  {session.user.user_metadata.name}
-                </h1>
-                <p style={{ color: "white" }}>
-                  FilmDB member since{" "}
-                  {new Date(session.user.created_at).toLocaleDateString()}
-                </p>
-              </div>
-              <div>
-                <ul>
-                  <li>
-                    <a href="/update-Password">Update Password</a>
-                  </li>
-                  <li>
-                    <a href="/delete-account">Delete Account</a>
-                  </li>
-                </ul>
-              </div>
+              <img src={session.user.user_metadata.picture} alt="profile" />
+              <h1 style={{ color: "white" }}>
+                {session.user.user_metadata.name}
+              </h1>
+              <p style={{ color: "white" }}>
+                FilmDB member since{" "}
+                {new Date(session.user.created_at).toLocaleDateString()}
+              </p>
             </div>
           )}
+          <div className="rating">
+            <h2 style={{ color: "gold" }} className="ratingH1">
+              {" "}
+              You Rathing
+            </h2>
+            <p style={{ color: "white" }}>Most Reccently rated</p>
+            <p>{rating}</p>
+          </div>
+          <div className="watchlist">
+            <div className="lists">
+              <div className="">
+                <h2 style={{ color: "gold" }}> Your Lists</h2>
+                <a href="./watchlistCreate"> Create New Watchlist</a>
+              </div>
+              <p color="White">Share movie ,</p>
+            </div>
+            <h2 style={{ color: "gold" }}>Your Watchlist</h2>
 
-          <Userrating />
-          <UserWatchist />
+            {watchlist.map((item) => (
+              <div style={{ color: "white" }} key={item.movie_id}>
+                {item.movie_id}
+              </div>
+            ))}
+          </div>
           <div className="Recommended">
             <h2 style={{ color: "gold" }}>Your Recommended</h2>
             <p style={{ color: "white" }}>Your recommended</p>
@@ -80,6 +127,68 @@ function User() {
             <p style={{ color: "white" }}>Your Recently Taken Polls</p>
 
             <p></p>
+          </div>
+        </section>
+        <section className="section-two">
+          <div className="setting">
+            <ul>
+              <li>
+                <a href="">Update Email</a>
+              </li>
+              <li>
+                <a href="">Update Password</a>
+                <li>
+                  <a href="">Delete Account</a>
+                </li>
+              </li>
+            </ul>
+          </div>
+          <div className="quicklinks"></div>
+          <div className="RatingAnalysse"></div>
+          <div className="Share">
+            <div className="d-flex justify-content-center">
+              <p style={{ fontSize: "14px", paddingRight: "5px" }}> Share</p>
+              <a
+                href="https://www.facebook.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-facebook"></i>
+              </a>
+              <a
+                href="https://twitter.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-twitter"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/imdb/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-instagram"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/imdb-com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-linkedin"></i>
+              </a>
+              <a
+                href="https://www.youtube.com/imdb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white mx-2"
+              >
+                <i className="bi bi-youtube"></i>
+              </a>
+            </div>
           </div>
         </section>
       </main>
