@@ -34,15 +34,15 @@
 }
 
 .modal-body {
-  padding: 0; /* Remove padding from the body */
+  padding: 0; 
 }
 
 .movie-details {
   display: flex;
   align-items: flex-start;
-  background-color: #1a1a1a; /* Background color for movie details container */
+  background-color: #1a1a1a; 
   border-radius: 8px;
-  padding: 24px; /* Add padding to the movie details container */
+  padding: 24px; 
 }
 
 .movie-poster img {

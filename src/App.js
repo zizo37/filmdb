@@ -14,7 +14,8 @@ import UserUpdatePassword from "./components/UserPasswordUpdate";
 import UserDeleteAccount from "./components/UserDeleteAccount";
 import PrivacyPolicy from './PrivacyPolicy';
 import TermsOfService from './TermsOfService';
-
+import Popular from './Popular';
+import TopRated from "./TopRated";
 function App() {
   return (
     <>
@@ -32,6 +33,8 @@ function App() {
         <Route path="/delete-account" element={<UserDeleteAccount />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/popular" element={<Popular />} /> 
+        <Route path="/toprated" element={<TopRated />} /> 
       </Routes>
     </>
   );
