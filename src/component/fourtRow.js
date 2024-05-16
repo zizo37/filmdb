@@ -8,13 +8,43 @@ import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from 'react-router-dom';
 
 function FourthRow(props) {
+
+  const supabase = createClient(
+    "https://ksnouxckabitqorjucgz.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c"
+  );
+  
+    const [user, setUser] = useState(null);
     const [isAddedToList, setIsAddedToList] = useState(false);
 
     const [genres, setGenres] = useState([]);
-    const [user, setUser] = useState(null);
     const navigate=useNavigate();
     const [companies,setCompanies]=useState([])
 
+
+    useEffect(() => {
+      const fetchUserData = async () => {
+  
+        const { data: { user }, error } = await supabase.auth.getUser();
+        if (error) {
+          console.error("Error fetching user data:", error.message);
+        } else {
+          console.log(user);
+          setUser(user);
+        }
+      };
+  
+      fetchUserData();
+    }, []);
+    useEffect(
+      ()=>{
+        console.log(user);
+
+
+      }
+      ,
+      [user]
+    )
 
     useEffect(() => {
         if (props.data && props.data.Genre) {
@@ -71,11 +101,8 @@ function FourthRow(props) {
     left:0,
     padding:4
 
-  }
-  const supabase = createClient(
-    "https://ksnouxckabitqorjucgz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c"
-  );
+  };
+  
   // const createTable =async ()=>{
    
    
@@ -99,7 +126,7 @@ function FourthRow(props) {
               const { data, error } = await supabase
                   .from('watchlist')
                   .select('*')
-                  .eq('user_id', props.userID)
+                  .eq('user_id', user.id)
                   .eq('movie_id', props.data.imdbID);
                   //isAddedToList(true);
 
@@ -122,7 +149,7 @@ function FourthRow(props) {
 
       }
       ,
-      [props.userID,props.data.imdbID]
+      [user]
   )
   
     
@@ -133,10 +160,10 @@ function FourthRow(props) {
 
   const handelWhatchList = async () => {
 
-    if(props.userID ){
+    if(user.id ){
     
       if(!isAddedToList){
-        console.log(props.userID);
+        console.log(user.id);
 
         // Vérifiez si les données du film sont disponibles
       if (!props.data || !props.data.imdbID) {
@@ -148,7 +175,7 @@ function FourthRow(props) {
         //await createTable();
         // Insérez l'ID du film et l'ID de l'utilisateur connecté dans la table de la liste de surveillance de votre base de données Supabase
         const { data, error } = await supabase.from('watchlist').insert([
-          { movie_id: props.data.imdbID, user_id: props.userID }
+          { movie_id: props.data.imdbID, user_id: user.id }
         ]);
         setIsAddedToList(true);
 
@@ -176,7 +203,7 @@ function FourthRow(props) {
             const { data, error } = await supabase
                 .from('watchlist')
                 .delete()
-                .eq('user_id', props.userID) // Match user_id
+                .eq('user_id', user.id) // Match user_id
                 .eq('movie_id', props.data.imdbID); // Match film_id
                 setIsAddedToList(false);
 
@@ -200,7 +227,6 @@ function FourthRow(props) {
   else{
    
       alert("you are not authentified");
-      console.log(props.companie.production_companies);
 
     
   }

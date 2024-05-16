@@ -11,20 +11,22 @@ import ThirdRow from './component/thirdRow';
 import FourthRow from './component/fourtRow';
 
 const Movie = () => {
-  const { title,userID } = useParams();
+  const { id,userID } = useParams();
   const [movie, setMovie] = useState(null);
   const [movieData,setMovieData] =useState();
+  const [backgroundImageUrl,setBackgroundImageUrl]=useState();
 
   const [data, setData] = useState({});
   //const [idMOvie,setIdmovie]=useState();
 
-  const backgroundImageUrl = data.Poster;
+  //const backgroundImageUrl = data.Poster;
+
   const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     async function getData() {
-      if (title) {
+      if (id) {
         const options = {
           method: 'GET',
           headers: {
@@ -36,13 +38,14 @@ const Movie = () => {
 
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${title}?language=en-US`,
+            `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
             options
           );
           const data = await response.json();
           setMovie(data.imdb_id || null);
           console.log(data);
           setMovieData(data);
+
           setLoading(false); // Arrêtez le chargement en cas d'erreur
 
         } catch (error) {
@@ -52,7 +55,7 @@ const Movie = () => {
       }
     }
     getData();
-  }, [title]);
+  }, [id]);
 
 
   //
@@ -78,10 +81,10 @@ const Movie = () => {
         }
       };
 
-      fetchMovieDetails(title);
+      fetchMovieDetails(id);
     }
     ,
-    [title]
+    [id]
   )
   
 
@@ -114,6 +117,22 @@ const Movie = () => {
   
         });
   }, [movie]); 
+  useEffect(
+    ()=>{
+      if (movieData && movieData.backdrop_path) {
+        console.log(movieData.backdrop_path);
+              setBackgroundImageUrl(`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`);
+
+
+      }
+      //console.log(`https://image.tmdb.org/t/p/original${movieData}`);
+
+      // setBackgroundImageUrll(`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`);
+
+      
+    },
+    [movieData]
+  );
   
   
   const containerStyle = {
@@ -122,8 +141,8 @@ const Movie = () => {
   backgroundRepeat: 'no-repeat',
   //backgroundPosition: 'center',
   position: 'absolute',
-  width: '100vw',
-  height: '1000px',  
+  // width: '100vw',
+  // height: '1000px',  
   
   };
   
@@ -135,23 +154,23 @@ const Movie = () => {
     <>
       
       
-    <Header/>
-    <div>
-        {loading ? (
-          <p>Loading...</p>
-        ) : data ? (
-            <div className="container-fluid "style={containerStyle} >
-                <FirstRow data={data} />
-                <SecondRow userID={userID}
-              
-                data={data} />
-                <ThirdRow data={data} />
-                <FourthRow data={data} userID={userID} companie={movieData} />
-            </div>
-        ) : (
-          <p>No film available</p>
-        )}
-      </div>
+      <Header/>
+          <section>
+            {loading ? (
+              <p>Loading...</p>
+            ) : data ? (
+                <div className="container-fluid "style={containerStyle} >
+                    <FirstRow data={data} />
+                    <SecondRow userID={userID}
+                  
+                    data={data} />
+                    <ThirdRow data={data} />
+                    <FourthRow data={data} userID={userID} companie={movieData} />
+                </div>
+            ) : (
+              <p>No film available</p>
+            )}
+          </section>
       <Footer/>
     </>
   );
