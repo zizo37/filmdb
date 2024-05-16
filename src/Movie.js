@@ -117,6 +117,7 @@ const Movie = () => {
   
         });
   }, [movie]); 
+  
   useEffect(
     ()=>{
       if (movieData && movieData.backdrop_path) {
@@ -160,7 +161,7 @@ const Movie = () => {
               <p>Loading...</p>
             ) : data ? (
                 <div className="container-fluid "style={containerStyle} >
-                    <FirstRow data={data} />
+                    <FirstRow data={data} ID={id} />
                     <SecondRow userID={userID}
                   
                     data={data} />

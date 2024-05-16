@@ -15,7 +15,7 @@ function FirstRow(props) {
         await navigator.share({
           title: document.title,
           text: 'Check out this awesome movie!',
-          url: `https://filmdata.onrender.com/movie/${props.data.imdbID} `// Remplacez par l'URL souhaitée
+          url: `https://filmdata.onrender.com/movie/${props.ID} `// Remplacez par l'URL souhaitée
         });
         console.log('Page shared successfully');
       } else {
