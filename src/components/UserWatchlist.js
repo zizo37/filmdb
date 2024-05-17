@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +23,7 @@ const MovieCard = ({ movie }) => {
         width: "250px",
         height: "300px",
         textAlign: "center",
+        cursor: "pointer",
       }}
       className="movie_card"
     >
@@ -31,10 +32,7 @@ const MovieCard = ({ movie }) => {
         alt={movie.title}
         style={{ width: "200px", height: "200px" }}
       />
-      <h3 style={{ fontSize: "20px", margin: "10px auto" }}>
-        Title: {movie.title}
-      </h3>
-      {/* <p>Overview: {movie.overview}</p> */}
+      <h3 style={{ fontSize: "20px", margin: "10px auto" }}>{movie.title}</h3>
     </div>
   );
 };
@@ -43,13 +41,11 @@ const UserWatchlist = () => {
   const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.co";
   const supabaseAnonKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c";
+
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
   const [session, setSession] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
-
   const [movies, setMovies] = useState([]);
-
-  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -59,7 +55,6 @@ const UserWatchlist = () => {
         console.error("Error fetching user data:", error.message);
       } else {
         setSession(data.session);
-        setUserData(data.session.user);
       }
     };
 
@@ -67,7 +62,7 @@ const UserWatchlist = () => {
   }, []);
 
   useEffect(() => {
-    if (userData) {
+    if (session) {
       const fetchWatchlistData = async () => {
         const { data, error } = await supabase
           .from("watchlist")
@@ -79,39 +74,39 @@ const UserWatchlist = () => {
           console.error("Error fetching watchlist:", error.message);
         } else {
           setWatchlist(data);
-
-          console.log(data);
         }
       };
 
       fetchWatchlistData();
     }
-  }, [userData]);
+  }, [session]);
 
   const fetchMovieDetails = async (movieId) => {
     const options = {
       method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: "Bearer b2efe9b0108d8645f514bc9b0363d199",
+      url: `https://api.themoviedb.org/3/movie/${movieId}`,
+      params: {
+        api_key: "b2efe9b0108d8645f514bc9b0363d199",
       },
     };
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=b2efe9b0108d8645f514bc9b0363d199`,
-      options
-    )
-      .then((response) => response.json())
-      // .then((response) => console.log(response))
-      .then((response) => setMovies((prevMovies) => [...prevMovies, response]))
-      // .then(console.log(movie))
-      .catch((err) => console.error(err));
+    try {
+      const response = await axios.request(options);
+      setMovies((prevMovies) => [...prevMovies, response.data]);
+      console.log(movies);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    watchlist.forEach((item) => {
-      fetchMovieDetails(item.movie_id);
-    });
+    const fetchMovies = async () => {
+      for (const item of watchlist) {
+        await fetchMovieDetails(item.movie_id);
+      }
+    };
+
+    fetchMovies();
 
     setMovies([]);
   }, [watchlist]);
@@ -121,25 +116,12 @@ const UserWatchlist = () => {
       <div className="lists">
         <div>
           <h2 style={{ color: "gold" }}>Your Lists</h2>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
         </div>
-        <p color="white">Share movie,</p>
-      </div>
-      <h2 style={{ color: "gold" }}>Your Watchlist</h2>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          margin: "10px",
-        }}
-      >
-        {movies.length > 0 ? (
-          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-        ) : (
-          <div>No movie in the watch List</div>
-        )}
       </div>
     </div>
   );

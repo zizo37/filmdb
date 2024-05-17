@@ -67,14 +67,8 @@ function User() {
 
           <Userrating />
           <UserWatchist />
-          <div className="Recommended">
-            <h2 style={{ color: "gold" }}>Your Recommended</h2>
-            <p style={{ color: "white" }}>Your recommended</p>
-          </div>
-          <div className="Reviews">
-            <h2 style={{ color: "gold" }}>Your Reviews</h2>
-            <p style={{ color: "white" }}>Your reviews</p>
-          </div>
+          <UserRecommanded />
+          <UserReview />
           <div className="RecentlyView">
             <h2 style={{ color: "gold" }}>Your Recently Taken Polls</h2>
             <p style={{ color: "white" }}>Your Recently Taken Polls</p>
