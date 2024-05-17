@@ -9,10 +9,11 @@ const Content = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [topRatedshowAll, setTopRatedshowAll] = useState(false);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
-  const [upcomingshowAll, setUpcomingshowAll] = useState(false);
+  const [upcomingshowAll, setUpcomingshowAll] = useState(true);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
+  const [autoSlideInterval, setAutoSlideInterval] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -77,29 +78,52 @@ const Content = () => {
     fetchMovies();
   }, [upcomingshowAll]);
 
-
   const popularHandleShowAll = () => {
     setPopularshowAll(!popularshowAll);
   };
-  
+
   const topRatedHandleShowAll = () => {
     setTopRatedshowAll(!topRatedshowAll);
   };
-  
+
   const upcomingHandleShowAll = () => {
     setUpcomingshowAll(!upcomingshowAll);
   };
-  
+
   const handleMovieDetails = (movie) => {
     setSelectedMovie(movie);
   };
+
+  const startAutoSlide = () => {
+    const interval = setInterval(() => {
+      handleNextSlide();
+    }, 3000); // Change slide every 3 seconds
+    setAutoSlideInterval(interval);
+  };
+
+  const stopAutoSlide = () => {
+    clearInterval(autoSlideInterval);
+  };
+
   const handlePrevSlide = () => {
+    stopAutoSlide(); // Stop auto slide when user interacts
     setCurrentSlide(currentSlide === 0 ? upcomingMovies.length - 1 : currentSlide - 1);
   };
 
   const handleNextSlide = () => {
-    setCurrentSlide(currentSlide === upcomingMovies.length - 1 ? 0 : currentSlide + 1);
+    stopAutoSlide(); // Stop auto slide when user interacts
+    setCurrentSlide((prevSlide) => {
+      const isLastSlide = prevSlide === upcomingMovies.length - 1;
+      return isLastSlide ? 0 : prevSlide + 1;
+    });
   };
+
+  useEffect(() => {
+    startAutoSlide(); // Start auto slide when component mounts
+    return () => {
+      stopAutoSlide(); // Stop auto slide when component unmounts
+    };
+  }, []);
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -108,7 +132,12 @@ const Content = () => {
     }
   }, [currentSlide]);
 
-
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (slider) {
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+  }, [currentSlide]);
 
   return (
     <>
