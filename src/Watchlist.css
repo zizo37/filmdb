@@ -1,40 +1,40 @@
-.watchlist-container {
+.my-watchlist-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   color: #fff;
 }
 
-.watchlist-title {
+.my-watchlist-title {
   font-size: 48px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
 }
 
-.watchlist-title-text {
+.my-watchlist-title-text {
   color: #ccc;
 }
 
-.watchlist-title-highlight {
+.my-watchlist-title-highlight {
   color: rgb(226, 215, 1);
 }
 
-.watchlist-movie-item {
+.my-watchlist-movie-item {
   padding-bottom: 15px;
 }
 
-.watchlist-img-thumbnail {
+.my-watchlist-img-thumbnail {
   width: 100px;
   height: auto;
 }
 
-.watchlist-movie-overview {
+.my-watchlist-movie-overview {
   margin-bottom: 0.5rem;
   color: #fff;
 }
 
-.watchlist-movie-genres .badge {
+.my-watchlist-movie-genres .badge {
   font-size: 0.875rem;
 }
 
@@ -42,7 +42,7 @@
   flex: 1;
 }
 
-.watchlist-movie-card {
+.my-watchlist-movie-card {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -50,19 +50,19 @@
   position: relative; 
 }
 
-.watchlist-movie-image-wrapper {
+.my-watchlist-movie-image-wrapper {
   position: relative;
   overflow: hidden;
 }
 
-.watchlist-movie-image {
+.my-watchlist-movie-image {
   width: 100%;
   height: auto;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.watchlist-movie-overlay {
+.my-watchlist-movie-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -76,25 +76,25 @@
   transition: opacity 0.3s ease;
 }
 
-.watchlist-movie-card:hover {
+.my-watchlist-movie-card:hover {
   transform: translateY(-10px); 
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
 }
 
-.watchlist-movie-card:hover .watchlist-movie-image {
+.my-watchlist-movie-card:hover .my-watchlist-movie-image {
   transform: scale(1.1);
 }
 
-.watchlist-movie-card:hover .watchlist-movie-overlay {
+.my-watchlist-movie-card:hover .my-watchlist-movie-overlay {
   opacity: 1;
 }
 
-.watchlist-movie-details {
+.my-watchlist-movie-details {
   color: #fff;
   text-align: center;
 }
 
-.watchlist-movie-title {
+.my-watchlist-movie-title {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -103,3 +103,6 @@
 .bi-star-fill {
   color: #ffc107;
 }
+
+
+

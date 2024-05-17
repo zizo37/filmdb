@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom'; 
-import Header from './Header';
+
 import 'bootstrap-icons/font/bootstrap-icons.css'; 
 import './Watchlist.css'; 
+import Header from './Header';
 
 const supabase = createClient('https://ksnouxckabitqorjucgz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c');
 
@@ -95,10 +96,10 @@ const Watchlist = () => {
   return (
     <>
       <Header />
-      <div className="watchlist-container">
-        <h1 className="watchlist-title">
-          <span className="watchlist-title-text">Your</span>{' '}
-          <span className="watchlist-title-highlight">Watchlist</span>
+      <div className="my-watchlist-container">
+        <h1 className="my-watchlist-title">
+          <span className="my-watchlist-title-text">Your</span>{' '}
+          <span className="my-watchlist-title-highlight">Watchlist</span>
         </h1>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h4 className="text-white">{sortedMovieData.length} movies</h4>
@@ -136,11 +137,11 @@ const Watchlist = () => {
             </div>
             {sortedMovieData.map((movie, index) =>
               movie ? (
-                <div className="watchlist-movie-item mb-4" key={watchlist[index].id}>
+                <div className="my-watchlist-movie-item mb-4" key={watchlist[index].id}>
                   <div className="d-flex align-items-start">
                     <img
                       src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                      className="watchlist-img-thumbnail me-3"
+                      className="my-watchlist-img-thumbnail me-3"
                       alt={movie.title}
                       onClick={() => handleImageClick(movie.id)} 
                       style={{ cursor: 'pointer' }} 
@@ -152,8 +153,8 @@ const Watchlist = () => {
                         <i className="bi bi-star-fill text-warning me-2"></i>
                         <span className='text-white'>{movie.vote_average.toFixed(2)}</span>
                       </div>
-                      <p className="watchlist-movie-overview text-white">{movie.overview}</p>
-                      <div className="watchlist-movie-genres">
+                      <p className="my-watchlist-movie-overview text-white">{movie.overview}</p>
+                      <div className="my-watchlist-movie-genres">
                         {movie.genres.map((genre) => (
                           <span key={genre.id} className="badge bg-secondary me-1">
                             {genre.name}
@@ -173,16 +174,16 @@ const Watchlist = () => {
               movie ? (
                 <div className="col-md-3 col-sm-6 mb-4" key={watchlist[index].id}>
                   
-                  <div className="watchlist-movie-card" onClick={() => handleImageClick(movie.id)} style={{ cursor: 'pointer' }}>
-                    <div className="watchlist-movie-image-wrapper">
+                  <div className="my-watchlist-movie-card" onClick={() => handleImageClick(movie.id)} style={{ cursor: 'pointer' }}>
+                    <div className="my-watchlist-movie-image-wrapper">
                       <img
                         src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                        className="watchlist-movie-image"
+                        className="my-watchlist-movie-image"
                         alt={movie.title}
                       />
-                      <div className="watchlist-movie-overlay">
-                        <div className="watchlist-movie-details">
-                          <h5 className="watchlist-movie-title">{movie.title}</h5>
+                      <div className="my-watchlist-movie-overlay">
+                        <div className="my-watchlist-movie-details">
+                          <h5 className="my-watchlist-movie-title">{movie.title}</h5>
                           <div className="d-flex align-items-center">
                             <i className="bi bi-star-fill text-warning me-2"></i>
                             <span>{movie.vote_average.toFixed(2)}</span>
