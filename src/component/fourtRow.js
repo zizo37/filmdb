@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from 'react-router-dom';
 
@@ -67,7 +67,7 @@ function FourthRow(props) {
     if (user && props.data) fetchListMovie();
   }, [user, props.data]);
 
-  const handelWhatchList = async () => {
+  const handleWatchList = async () => {
     if (user?.id) {
       if (!isAddedToList) {
         console.log(user.id);
@@ -107,7 +107,7 @@ function FourthRow(props) {
         }
       }
     } else {
-      alert("you are not authenticated");
+      alert("You are not authenticated");
     }
   };
 
@@ -118,10 +118,33 @@ function FourthRow(props) {
   }, [props.companie]);
 
   const handleReviewSubmit = async () => {
-    // Logique pour soumettre l'avis (par exemple, l'enregistrer dans Supabase)
     console.log('Review submitted:', reviewText);
     setShowReview(false);
     setReviewText('');
+    if (user?.id) {
+
+      if (!props.data || !props.data.imdbID) {
+        console.error("No movie data available");
+        return;
+      }
+      try {
+        const { data, error } = await supabase.from('reviews').insert([
+          { movie_id: props.data.imdbID,review:reviewText, user_id: user.id }
+        ]);
+        if (error) {
+          console.error("Error adding review movie :", error);
+          return;
+        } else {
+          console.log("Movie review added :", data);
+        }
+      } catch (error) {
+        console.error("Error adding review movie :", error.message);
+      }
+
+    }
+    else{
+      alert('you are not authenticated');
+    }
   };
 
   const styleElement = {
@@ -134,60 +157,48 @@ function FourthRow(props) {
   };
 
   const buttonStyle = {
-    position: 'relative',
     width: '100%',
-    backgroundColor: 'orange',
+    backgroundColor: isAddedToList ? 'red' : 'orange',
     color: 'black',
     border: 'none',
     borderRadius: '5px',
     padding: '10px',
     fontSize: '16px',
     cursor: 'pointer',
-  };
-
-  const parentDivStyle = {
-    marginLeft: '130px',
-    height: 50,
-    marginTop: '90px',
-  };
-
-  const plus = {
-    position: 'absolute',
-    left: 0,
-    padding: 4,
+    textAlign: 'left',
   };
 
   return (
     <div className="row">
-      <div className="col-8">
+      <div className="col-lg-8 col-md-8 col-sm-12">
         <div className='row'>
-          <div style={{ color: 'white', textDecoration: 'none', margin: "20px", }}>
+          <div style={{ color: 'white', textDecoration: 'none', margin: "20px" }}>
             {genres.map(item => <span style={styleElement} key={item}> {item}</span>)}
             <p>
               <br></br>
               {props.data.Plot}
             </p>
           </div>
-          <hr style={{ color: 'white', textDecoration: 'none', }}></hr>
-          <div style={{ color: 'white', textDecoration: 'none', }}>
-            <span style={{ textTransform: 'uppercase', fontSize: '1em' }}>Director </span><span style={{ color: 'blue', }}> {props.data.Director} </span>
+          <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
+          <div style={{ color: 'white', textDecoration: 'none' }}>
+            <span style={{ textTransform: 'uppercase', fontSize: '1em' }}>Director </span><span style={{ color: 'blue' }}> {props.data.Director} </span>
           </div>
-          <hr style={{ color: 'white', textDecoration: 'none', }}></hr>
-          <div style={{ color: 'white', textDecoration: 'none', }}>
-            <span style={{ textTransform: 'uppercase', fontSize: '1em' }}>Writers </span><span style={{ color: 'blue', }}> {props.data.Writer} </span>
+          <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
+          <div style={{ color: 'white', textDecoration: 'none' }}>
+            <span style={{ textTransform: 'uppercase', fontSize: '1em' }}>Writers </span><span style={{ color: 'blue' }}> {props.data.Writer} </span>
           </div>
-          <hr style={{ color: 'white', textDecoration: 'none', }}></hr>
-          <div style={{ color: 'white', textDecoration: 'none', }}>
-            <span style={{ textTransform: 'uppercase', fontSize: '1.2em' }}>Start </span><span style={{ color: 'blue', }}> {props.data.Actors} </span>
+          <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
+          <div style={{ color: 'white', textDecoration: 'none' }}>
+            <span style={{ textTransform: 'uppercase', fontSize: '1.2em' }}>Stars </span><span style={{ color: 'blue' }}> {props.data.Actors} </span>
           </div>
-          <hr style={{ color: 'white', textDecoration: 'none', }}></hr>
-          <div style={{ color: 'white', textDecoration: 'none', }}>
+          <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
+          <div style={{ color: 'white', textDecoration: 'none' }}>
             <span style={{ textTransform: 'uppercase', fontSize: '1.5em' }}>IMDb </span>Pro See production info at IMDbPro
           </div>
-          <hr style={{ color: 'white', textDecoration: 'none', }}></hr>
+          <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
         </div>
       </div>
-      <div className="col-3" style={parentDivStyle}>
+      <div className="col-lg-3 col-md-3 col-sm-12" style={{ marginLeft: 'auto', marginTop: '90px' }}>
         <div>
           {companies && companies.map((company, index) => (
             company.logo_path ? (
@@ -201,8 +212,8 @@ function FourthRow(props) {
             ) : null
           ))}
         </div>
-        <button className="watch-list-button" style={buttonStyle} onClick={handelWhatchList}>
-          <FontAwesomeIcon icon={faPlus} style={plus} /> {isAddedToList ? "Remove from watch list" : 'Add to watch list'}
+        <button className="watch-list-button" style={buttonStyle} onClick={handleWatchList}>
+          <FontAwesomeIcon icon={isAddedToList ? faMinus : faPlus} /> {isAddedToList ? "Remove from watch list" : 'Add to watch list'}
         </button>
         <div style={{ marginTop: "22px" }}>
           {props.data.Metascore !== 'N/A' && (
