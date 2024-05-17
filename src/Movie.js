@@ -53,7 +53,7 @@ const Movie = () => {
   useEffect(() => {
     if (imdb) {
       const apiKey = '2b73a326';
-      const url = `http://www.omdbapi.com/?i=${imdb}&apikey=${apiKey}`;
+      const url = `https://www.omdbapi.com/?i=${imdb}&apikey=${apiKey}`;
       axios.get(url)
         .then(response => {
           const donne = response.data;
