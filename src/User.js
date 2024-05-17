@@ -7,7 +7,6 @@ import Footer from "./Footer";
 import Userrating from "./components/UserRating";
 import UserWatchist from "./components/UserWatchlist";
 import UserReview from "./components/UserReviews";
-import UserRecommanded from "./components/UserRecommanded";
 
 // Initialize Supabase client outside of the component
 const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.com";
@@ -67,7 +66,6 @@ function User() {
 
           <Userrating />
           <UserWatchist />
-          <UserRecommanded />
 
           <UserReview />
           <div className="RecentlyView">
