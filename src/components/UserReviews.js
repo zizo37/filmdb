@@ -1,15 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
-
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Userrating = () => {
+const UserReview = () => {
   const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.com";
   const supabaseAnonKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c";
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
   const [session, setSession] = useState(null);
-  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState([]);
   const [userData, setUserData] = useState(null);
 
   const [movie, setMovie] = useState([]);
@@ -33,7 +33,7 @@ const Userrating = () => {
     const fetchRatingData = async () => {
       if (userData) {
         const { data, error } = await supabase
-          .from("ratings")
+          .from("reviews")
           .select("*")
           .eq("user_id", session.user.id);
         // .order("created_at", { ascending: false }) // Tri par date (du plus récent au plus ancien)
@@ -53,7 +53,6 @@ const Userrating = () => {
     fetchRatingData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
-
   const fetchMovieDetails = async (movieId) => {
     const options = {
       method: "GET",
@@ -80,12 +79,12 @@ const Userrating = () => {
       for (const item of movies) {
         for (const i of item) {
           await fetchMovieDetails(i.movie_id);
-          setRating(i.rating);
+          setReview(i.review);
           console.log(i.movie_id);
         }
         console.log(item);
       }
-      console.log(rating);
+      console.log(review);
     };
 
     fetchMovies();
@@ -94,13 +93,12 @@ const Userrating = () => {
   const navigate = useNavigate();
 
   const handleMovieClick = () => {
-    navigate(`/movie/${movie.id}`);
+    navigate(`/movie/${movie.movie_id}`);
   };
-
   return (
     <div className="rating">
-      <h2 style={{ color: "gold" }}>Your Rating</h2>
-      <p style={{ color: "white" }}>Most Recently Rated</p>
+      <h2 style={{ color: "gold" }}>Your Reviews</h2>
+      <p style={{ color: "white" }}>Most Recently Review</p>
       <div
         style={{
           display: "flex",
@@ -110,11 +108,10 @@ const Userrating = () => {
           margin: "10px",
         }}
       >
-        {rating ? (
+        {review ? (
           <div>
             {movie.map((item) => (
               <div
-                key={item.movie_id}
                 onClick={handleMovieClick}
                 style={{
                   backgroundColor: "#000",
@@ -123,33 +120,43 @@ const Userrating = () => {
                   borderRadius: "5px",
                   boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                   margin: "10px",
-                  width: "250px",
-                  height: "350px",
+                  width: "100%",
+                  height: "200px",
                   textAlign: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
                 className="movie_card"
+                key={item.movie_id}
               >
                 <img
                   src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                  style={{ width: "200px", height: "200px" }}
+                  style={{ width: "150px", height: "150px" }}
                   alt={item.title}
                 />
-                <h3 style={{ fontSize: "20px", margin: "10px auto" }}>
-                  {item.title}
-                </h3>
-                <p> Rating {rating}</p>
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      margin: "10px auto",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p> Review: {review}</p>
+                </div>
               </div>
             ))}
           </div>
         ) : (
-          <div>
-            No movie has rated
-            {/* <p>You rating {rating}</p> */}
-          </div>
+          <div>No movie has review. Add review to see it</div>
         )}
       </div>
     </div>
   );
 };
 
-export default Userrating;
+export default UserReview;
