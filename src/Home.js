@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import Content from './Content';
+import ChatbotApp from './MovieChatbot/ChatbotApp';
 
 function Home() {
     return (
@@ -9,6 +10,7 @@ function Home() {
         <Header/>
         <Content />
         <Footer/>
+        <ChatbotApp/>
       </>
 
     );

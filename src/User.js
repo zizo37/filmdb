@@ -6,9 +6,10 @@ import "./UserStyle.css";
 import Footer from "./Footer";
 import Userrating from "./components/UserRating";
 import UserWatchist from "./components/UserWatchlist";
+import UserReview from "./components/UserReviews";
 
 // Initialize Supabase client outside of the component
-const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.co";
+const supabaseUrl = "https://ksnouxckabitqorjucgz.supabase.com";
 const supabaseAnonKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -26,8 +27,6 @@ function User() {
       } else {
         setSession(data.session);
         setUserData(data.session.user);
-        console.log(session);
-        console.log(userData);
       }
     };
 
@@ -65,16 +64,7 @@ function User() {
             </div>
           )}
 
-          <Userrating />
           <UserWatchist />
-          <UserRecommanded />
-          <UserReview />
-          <div className="RecentlyView">
-            <h2 style={{ color: "gold" }}>Your Recently Taken Polls</h2>
-            <p style={{ color: "white" }}>Your Recently Taken Polls</p>
-
-            <p></p>
-          </div>
         </section>
       </main>
       <Footer />
