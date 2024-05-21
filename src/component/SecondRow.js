@@ -4,39 +4,12 @@ import { FaStar } from 'react-icons/fa';
 import { createClient } from "@supabase/supabase-js";
 
 function SecondRow(props) {
-    const [user, setUser] = useState(null);
-
     const [filled, setFilled] = useState(false);
     const [rating,setRating]=useState(null);
     const supabase = createClient(
         "https://ksnouxckabitqorjucgz.supabase.co",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c"
       );
-
-      useEffect(() => {
-        const fetchUserData = async () => {
-    
-          const { data: { user }, error } = await supabase.auth.getUser();
-          if (error) {
-            console.error("Error fetching user data:", error.message);
-          } else {
-            console.log(user);
-            setUser(user);
-          }
-        };
-    
-        fetchUserData();
-      }, []);
-      useEffect(
-        ()=>{
-          console.log(user);
-  
-  
-        }
-        ,
-        [user]
-      )
-  
 
       useEffect(() => {
         if (props.data.Ratings && props.data.Ratings.length > 0) {
@@ -52,7 +25,7 @@ function SecondRow(props) {
                 const { data, error } = await supabase
                     .from('ratings')
                     .select('rating')
-                    .eq('user_id', user.id)
+                    .eq('user_id', props.userID)
                     .eq('movie_id', props.data.imdbID);
 
                 if (error) {
@@ -70,7 +43,7 @@ function SecondRow(props) {
         };
 
         fetchRating();
-    }, [user, props.data.imdbID]);
+    }, [props.userID, props.data.imdbID]);
 
     const handleRateClick = async () => {
         if (!filled) {
@@ -78,7 +51,7 @@ function SecondRow(props) {
                 // Stockez le rating de l'utilisateur dans la base de données Supabase
                 const { data, error } = await supabase
                     .from('ratings')
-                    .insert([{ movie_id: props.data.imdbID, rating: 10, user_id: user.id }]);
+                    .insert([{ movie_id: props.data.imdbID, rating: 10, user_id: props.userID }]);
 
                 if (error) {
                     console.error('Error adding rating:', error.message);
@@ -96,7 +69,7 @@ function SecondRow(props) {
                 const { data, error } = await supabase
                     .from('ratings')
                     .delete()
-                    .eq('user_id', user.id)
+                    .eq('user_id', props.userID)
                     .eq('movie_id', props.data.imdbID);
 
                 if (error) {

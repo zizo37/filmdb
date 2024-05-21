@@ -64,16 +64,7 @@ function User() {
             </div>
           )}
 
-          <Userrating />
           <UserWatchist />
-
-          <UserReview />
-          <div className="RecentlyView">
-            <h2 style={{ color: "gold" }}>Your Recently Taken Polls</h2>
-            <p style={{ color: "white" }}>Your Recently Taken Polls</p>
-
-            <p></p>
-          </div>
         </section>
       </main>
       <Footer />
