@@ -133,9 +133,9 @@ const Content = () => {
   };
 
   useEffect(() => {
-    startAutoSlide(); // Start auto slide when component mounts
+    startAutoSlide(); 
     return () => {
-      stopAutoSlide(); // Stop auto slide when component unmounts
+      stopAutoSlide(); 
     };
   }, []);
 
