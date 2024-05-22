@@ -1,0 +1,10 @@
+.extra-stars {
+    display: none;
+    position: absolute;
+    top: 30px; /* Ajustez la position en fonction de vos besoins */
+    left: 0; /* Assurez-vous que les étoiles sont alignées correctement */
+}
+
+.extra-stars.show {
+    display: block;
+}

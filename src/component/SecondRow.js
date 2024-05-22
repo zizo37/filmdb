@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaStar } from 'react-icons/fa';
 import { createClient } from "@supabase/supabase-js";
+import ReactStars from "react-rating-stars-component";
+
 
 function SecondRow(props) {
     const [user, setUser] = useState(null);
 
     const [filled, setFilled] = useState(false);
     const [rating,setRating]=useState(null);
+    const [ratevalue, setRatevalue] = useState(0); // Initialisation à 0 par défaut
+
     const supabase = createClient(
         "https://ksnouxckabitqorjucgz.supabase.co",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzbm91eGNrYWJpdHFvcmp1Y2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0MzM4ODgsImV4cCI6MjAzMDAwOTg4OH0.17MF1DByop1lCcnefGB8t3AcS1CGcJvbzunwY3QbK_c"
@@ -45,40 +49,111 @@ function SecondRow(props) {
     }, [props.data.Ratings]);
 
 
+    // useEffect(() => {
+    //     // Vérifiez si l'utilisateur a déjà évalué ce film lorsqu'il charge la page
+    //     const fetchRating = async () => {
+    //         try {
+    //             const { data, error } = await supabase
+    //                 .from('ratings')
+    //                 .select('rating')
+    //                 .eq('user_id', user.id)
+    //                 .eq('movie_id', props.data.imdbID);
+
+    //             if (error) {
+    //                 console.error('Error fetching rating:', error.message);
+    //                 return;
+    //             }
+
+    //             if (data.length > 0) {
+    //                 setFilled(true);
+    //                 //setRating(data[0].rating);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching rating:', error.message);
+    //         }
+    //     };
+
+    //     fetchRating();
+    // }, [user, props.data.imdbID]);
+
+    // const handleRateClick = async () => {
+    //     if (!filled) {
+    //         try {
+    //             // Stockez le rating de l'utilisateur dans la base de données Supabase
+    //             const { data, error } = await supabase
+    //                 .from('ratings')
+    //                 .insert([{ movie_id: props.data.imdbID, rating: 10, user_id: user.id }]);
+
+    //             if (error) {
+    //                 console.error('Error adding rating:', error.message);
+    //                 return;
+    //             }
+
+    //             setFilled(true);
+    //             //setRating(10); // Mettez à jour le rating affiché
+    //         } catch (error) {
+    //             console.error('Error adding rating:', error.message);
+    //         }
+    //     } else {
+    //         try {
+    //             // Supprimez le rating de l'utilisateur de la base de données Supabase
+    //             const { data, error } = await supabase
+    //                 .from('ratings')
+    //                 .delete()
+    //                 .eq('user_id', user.id)
+    //                 .eq('movie_id', props.data.imdbID);
+
+    //             if (error) {
+    //                 console.error('Error deleting rating:', error.message);
+    //                 return;
+    //             }
+
+    //             setFilled(false);
+    //             //setRating(null); // Mettez à jour le rating affiché
+    //         } catch (error) {
+    //             console.error('Error deleting rating:', error.message);
+    //         }
+    //     }
+    // };
+
+
     useEffect(() => {
-        // Vérifiez si l'utilisateur a déjà évalué ce film lorsqu'il charge la page
-        const fetchRating = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('ratings')
-                    .select('rating')
-                    .eq('user_id', user.id)
-                    .eq('movie_id', props.data.imdbID);
+        if (user) {
+            const fetchRating = async () => {
+                try {
+                    const { data, error } = await supabase
+                        .from('ratings')
+                        .select('rating')
+                        .eq('user_id', user.id)
+                        .eq('movie_id', props.data.imdbID);
 
-                if (error) {
+                    if (error) {
+                        console.error('Error fetching rating:', error.message);
+                        return;
+                    }
+
+                    if (data.length > 0) {
+                        console.log(data[0].rating);
+                        setRatevalue(data[0].rating / 2); // Diviser par 2 pour obtenir la note sur 5
+                        setFilled(true);
+                    }
+                } catch (error) {
                     console.error('Error fetching rating:', error.message);
-                    return;
                 }
+            };
 
-                if (data.length > 0) {
-                    setFilled(true);
-                    //setRating(data[0].rating);
-                }
-            } catch (error) {
-                console.error('Error fetching rating:', error.message);
-            }
-        };
-
-        fetchRating();
+            fetchRating();
+        }
     }, [user, props.data.imdbID]);
 
-    const handleRateClick = async () => {
+    const ratingChanged = async (newRating) => {
+        console.log(newRating);
+
         if (!filled) {
             try {
-                // Stockez le rating de l'utilisateur dans la base de données Supabase
                 const { data, error } = await supabase
                     .from('ratings')
-                    .insert([{ movie_id: props.data.imdbID, rating: 10, user_id: user.id }]);
+                    .insert([{ movie_id: props.data.imdbID, rating: newRating * 2, user_id: user.id }]);
 
                 if (error) {
                     console.error('Error adding rating:', error.message);
@@ -86,31 +161,35 @@ function SecondRow(props) {
                 }
 
                 setFilled(true);
-                //setRating(10); // Mettez à jour le rating affiché
+                setRatevalue(newRating);
+                console.log(newRating);
             } catch (error) {
                 console.error('Error adding rating:', error.message);
             }
         } else {
             try {
-                // Supprimez le rating de l'utilisateur de la base de données Supabase
                 const { data, error } = await supabase
                     .from('ratings')
-                    .delete()
+                    .update({ rating: newRating * 2 })
                     .eq('user_id', user.id)
                     .eq('movie_id', props.data.imdbID);
 
                 if (error) {
-                    console.error('Error deleting rating:', error.message);
+                    console.error('Error updating rating:', error.message);
                     return;
                 }
 
-                setFilled(false);
-                //setRating(null); // Mettez à jour le rating affiché
+                setRatevalue(newRating);
+                console.log(newRating);
             } catch (error) {
-                console.error('Error deleting rating:', error.message);
+                console.error('Error updating rating:', error.message);
             }
         }
     };
+
+    useEffect(() => {
+        console.log(ratevalue);
+    }, [ratevalue]);
 
     return (
         <div className="row">
@@ -138,9 +217,8 @@ function SecondRow(props) {
                 </div>
                 <div className='col-6'>
                     <ul style={{listStyleType: "none"}}>
-                        <li>YOUR RATING</li>
-                        <li>
-                            <span  onClick={handleRateClick}>
+                       
+                            {/* <span  onClick={handleRateClick}>
                                 {filled ? (
                                     <FaStar style={{ color: 'orange',fontSize: '24px' }} />
                                 ) : (
@@ -149,8 +227,51 @@ function SecondRow(props) {
                             </span>  
                             <span  style={{color:'orange',fontSize: '18px'}}>
                                 Rate
-                            </span>
-                        </li>
+                            </span> */}
+                            {user && ratevalue > 0 && (
+                                <>
+                                 <li>YOUR RATING</li>
+                                <li>
+                                    <ReactStars
+                                        count={5}
+                                        onChange={ratingChanged}
+                                        value={ratevalue>0? ratevalue :0} // Utiliser la valeur de l'état
+                                        size={30}
+                                        isHalf={true}
+                                        emptyIcon={<i className="far fa-star"></i>}
+                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                        fullIcon={<i className="fa fa-star"></i>}
+                                        activeColor="orange"
+                                    />
+                                    <   span style={{color:'orange',fontSize: '18px'}}>
+                                        Rate
+                                    </span>
+                                    </li>
+                            </>
+                            )}
+                             {user && ratevalue === 0 && (
+                                <>
+                                 <li>YOUR RATING</li>
+                                <li>
+                                    <ReactStars
+                                        count={5}
+                                        onChange={ratingChanged}
+                                        value={ratevalue>0? ratevalue :0} // Utiliser la valeur de l'état
+                                        size={30}
+                                        isHalf={true}
+                                        emptyIcon={<i className="far fa-star"></i>}
+                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                        fullIcon={<i className="fa fa-star"></i>}
+                                        activeColor="orange"
+                                    />
+                                    <   span style={{color:'orange',fontSize: '18px'}}>
+                                        Rate
+                                    </span>
+                                    </li>
+                            </>
+                            )}
+                            
+                       
                     </ul>
                 </div>     
             </div>

@@ -17,6 +17,9 @@ function FourthRow(props) {
   const [companies, setCompanies] = useState([]);
   const [showReview, setShowReview] = useState(false);
   const [reviewText, setReviewText] = useState('');
+  const[whatchReview,setWhatchReview]=useState([]);
+  const [showReviews, setShowReviews] = useState(false);
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -147,6 +150,75 @@ function FourthRow(props) {
     }
   };
 
+
+  // useEffect(
+  //   ()=>{
+  //     const readReview = async () => {
+  //       console.log('Review submitted:', reviewText);
+  //       if (user?.id) {
+    
+  //         if (!props.data || !props.data.imdbID) {
+  //           console.error("No movie data available");
+  //           return;
+  //         }
+  //         try {
+  //           const { data, error } = await supabase.from('reviews').select(
+  //             'review'
+  //           ).eq('movie_id ',props.data.imdbID)
+  //           .eq('user_id',user.id);
+  //           if (error) {
+  //             console.error("Error read review movie :", error);
+  //             return;
+  //           } else {
+  //             console.log("Movie review :", data);
+  //             setWhatchReview(data);
+  //           }
+  //         } catch (error) {
+  //           console.error("Error read review movie :", error.message);
+  //         }
+    
+  //       }
+  //       else{
+  //         alert('you are not authenticated');
+  //       }
+  //     };
+
+  //     readReview();
+  //   },
+  //   [props.data.imdbID,user]
+  // )
+
+  const fetchReviews = async () => {
+    if (user?.id && props.data?.imdbID) {
+      try {
+        const { data, error } = await supabase
+          .from('reviews')
+          .select('review')
+          .eq('movie_id', props.data.imdbID)
+          .eq('user_id', user.id);
+
+        if (error) {
+          console.error("Error fetching reviews:", error.message);
+          return;
+        }
+
+        setWhatchReview(data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error.message);
+      }
+    } 
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, [props.data.imdbID, user]);
+
+  const handleShowReviews = (e) => {
+    e.preventDefault();
+    setShowReviews(!showReviews);
+  };
+
+
   const styleElement = {
     width: '200px',
     height: '100px',
@@ -154,6 +226,7 @@ function FourthRow(props) {
     borderRadius: '30px',
     margin: "6px",
     padding: "3px",
+    
   };
 
   const buttonStyle = {
@@ -167,6 +240,18 @@ function FourthRow(props) {
     cursor: 'pointer',
     textAlign: 'left',
   };
+  const buttonReviewStyle = {
+    width: '100%',
+    backgroundColor: 'orange',
+    color: 'black',
+    border: 'none',
+    borderRadius: '5px',
+    padding: '10px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    textAlign: 'left',
+  };
+
 
   return (
     <div className="row">
@@ -196,16 +281,31 @@ function FourthRow(props) {
             <span style={{ textTransform: 'uppercase', fontSize: '1.5em' }}>IMDb </span>Pro See production info at IMDbPro
           </div>
           <hr style={{ color: 'white', textDecoration: 'none' }}></hr>
+          <div>
+            <a href="#" onClick={handleShowReviews} style={{ color: 'yellow', textDecoration: 'overline ' }}>See your reviews</a> <br/>
+            {showReviews && (
+              whatchReview.length > 0 ? (
+                whatchReview.map((review, index) => (
+                  <>
+                  <span key={index} style={{ color: 'white' }}>{review.review}  </span>
+                   <br/>
+                  </>
+                ))
+              ) : (
+                <p style={{ color: 'white' }}>No reviews yet.</p>
+              )
+            )}
+          </div>
         </div>
+
       </div>
-      <div className="col-lg-3 col-md-3 col-sm-12" style={{ marginLeft: 'auto', marginTop: '90px' }}>
+      <div className="col-lg-3 col-md-3 col-sm-12" style={{ marginLeft: 'auto', marginTop: '10px' }}>
         <div>
           {companies && companies.map((company, index) => (
             company.logo_path ? (
               <img key={index} src={`https://image.tmdb.org/t/p/w500${company.logo_path}`} alt={`Company Logo ${index}`} style={{
                 width: '100px',
                 height: 'auto',
-                filter: 'invert(100%) sepia(100%) saturate(10000%) hue-rotate(330deg)',
                 margin: "5px",
                 marginBottom: '15px'
               }} />
@@ -215,15 +315,8 @@ function FourthRow(props) {
         <button className="watch-list-button" style={buttonStyle} onClick={handleWatchList}>
           <FontAwesomeIcon icon={isAddedToList ? faMinus : faPlus} /> {isAddedToList ? "Remove from watch list" : 'Add to watch list'}
         </button>
-        <div style={{ marginTop: "22px" }}>
-          {props.data.Metascore !== 'N/A' && (
-            <>
-              <span style={{ color: 'white', padding: '3px', backgroundColor: 'orange' }}>{props.data.Metascore}</span>
-              <span style={{ color: 'blue', marginLeft: '12px' }}>Metascore</span>
-            </>
-          )}
-        </div>
-        <button style={{ ...buttonStyle, marginTop: '20px' }} onClick={() => setShowReview(true)}>
+      
+        <button style={{ ...buttonReviewStyle, marginTop: '20px' }} onClick={() => setShowReview(true)}>
           Leave a Review
         </button>
         {showReview && (
@@ -235,11 +328,19 @@ function FourthRow(props) {
               rows="4"
               style={{ width: '100%', padding: '10px', borderRadius: '5px' }}
             />
-            <button style={{ ...buttonStyle, marginTop: '10px' }} onClick={handleReviewSubmit}>
+            <button style={{ ...buttonReviewStyle, marginTop: '10px' }} onClick={handleReviewSubmit}>
               Submit Review
             </button>
           </div>
         )}
+          <div style={{ marginTop: "22px" }}>
+          {props.data.Metascore !== 'N/A' && (
+            <>
+              <span style={{ color: 'white', padding: '3px', backgroundColor: 'orange' }}>{props.data.Metascore}</span>
+              <span style={{ color: 'blue', marginLeft: '12px' }}>Metascore</span>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

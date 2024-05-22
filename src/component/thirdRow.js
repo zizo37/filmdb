@@ -104,7 +104,7 @@ function ThirdRow(props) {
         {/* Colonne contenant la photo du film */}
         <img src={props.data.Poster} alt="Poster du film" className="img-fluid " />
       </div>
-      <div className="col-lg-6  m-1"        
+      <div className="col-lg-8  m-1"        
  >
         {/* Colonne contenant le trailer du film */}
         <iframe
@@ -117,33 +117,7 @@ function ThirdRow(props) {
           allowFullScreen
         ></iframe>
       </div>
-      <div className="col-2 m-1  justify-content-center align-items-center  "style={{height:"100%"}}   >
-        {/* Colonne contenant les icônes de vidéo et de photo */}
 
-        <div className="row" >
-          <div className="col mx-2 "  style={squareDivStyle} >
-            {/* Première ligne avec l'icône de vidéo */}
-           
-            <div>
-                <FaImage size={25}  squareIconStyle />
-                <span>Afficher l'image</span>
-            </div>
-
-          </div>
-        </div>
-
-
-        <div className="row" >
-          <div className="col mx-2 "style={squareDivStyle}   >
-            {/* Deuxième ligne avec l'icône de photo */}
-            <div>
-                <FaPlayCircle size={25} squareIconStyle  style={{height:"50%"}}  />
-                <span>Lire la vidéo</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
   );
 }
