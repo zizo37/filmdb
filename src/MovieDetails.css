@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Overlay background color */
+  background-color: rgba(0, 0, 0, 0.8); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,19 +12,19 @@
 }
 
 .modal-content {
-  background-color: #333; /* Modal content background color */
+  background-color: #333;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   width: 90%;
   position: relative;
-  padding: 24px; /* Add padding to the modal content */
+  padding: 24px; 
 }
 
 .modal-header {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 16px; /* Add some space between header and body */
+  margin-bottom: 16px; 
 }
 
 .close-icon {

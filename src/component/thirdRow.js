@@ -120,28 +120,6 @@ function ThirdRow(props) {
       <div className="col-2 m-1  justify-content-center align-items-center  "style={{height:"100%"}}   >
         {/* Colonne contenant les icônes de vidéo et de photo */}
 
-        <div className="row" >
-          <div className="col mx-2 "  style={squareDivStyle} >
-            {/* Première ligne avec l'icône de vidéo */}
-           
-            <div>
-                <FaImage size={25}  squareIconStyle />
-                <span>Afficher l'image</span>
-            </div>
-
-          </div>
-        </div>
-
-
-        <div className="row" >
-          <div className="col mx-2 "style={squareDivStyle}   >
-            {/* Deuxième ligne avec l'icône de photo */}
-            <div>
-                <FaPlayCircle size={25} squareIconStyle  style={{height:"50%"}}  />
-                <span>Lire la vidéo</span>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -149,3 +127,27 @@ function ThirdRow(props) {
 }
 
 export default ThirdRow;
+
+
+// <div className="row" >
+//           <div className="col mx-2 "  style={squareDivStyle} >
+//             {/* Première ligne avec l'icône de vidéo */}
+           
+//             <div>
+//                 <FaImage size={25}  squareIconStyle />
+//                 <span>Afficher l'image</span>
+//             </div>
+
+//           </div>
+//         </div>
+
+
+//         <div className="row" >
+//           <div className="col mx-2 "style={squareDivStyle}   >
+//             {/* Deuxième ligne avec l'icône de photo */}
+//             <div>
+//                 <FaPlayCircle size={25} squareIconStyle  style={{height:"50%"}}  />
+//                 <span>Lire la vidéo</span>
+//             </div>
+//           </div>
+//         </div>
