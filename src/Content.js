@@ -106,12 +106,20 @@ const Content = () => {
   };
 
   const handlePrevSlide = () => {
+<<<<<<< HEAD
     stopAutoSlide(); // Stop auto slide when user interacts
+=======
+    stopAutoSlide(); 
+>>>>>>> 020170b929793e9d0f5fba8cf602ae01a516c900
     setCurrentSlide(currentSlide === 0 ? upcomingMovies.length - 1 : currentSlide - 1);
   };
 
   const handleNextSlide = () => {
+<<<<<<< HEAD
     stopAutoSlide(); // Stop auto slide when user interacts
+=======
+    stopAutoSlide(); 
+>>>>>>> 020170b929793e9d0f5fba8cf602ae01a516c900
     setCurrentSlide((prevSlide) => {
       const isLastSlide = prevSlide === upcomingMovies.length - 1;
       return isLastSlide ? 0 : prevSlide + 1;
